@@ -7,10 +7,10 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    Obj obj = XmlFile("billofmaterial.xml").FromFileToObj();
-    //Obj obj(&XmlFile("billofmaterial.xml"))
+    XmlFile data("billofmaterial.xml");
+    Obj obj(&data);
 
-    std::cout<<obj.getBomBoard();
+    std::cout<<obj;
 
     return a.exec();
 }

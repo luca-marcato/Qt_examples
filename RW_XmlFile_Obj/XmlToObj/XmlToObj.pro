@@ -16,11 +16,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += main.cpp \
-    file.cpp \
+    obj.cpp \
     xmlfile.cpp \
-    obj.cpp
+    file.cpp
 
 HEADERS += \
-    file.h \
+    obj.h \
     xmlfile.h \
-    obj.h
+    file.h
