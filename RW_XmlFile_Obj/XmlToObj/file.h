@@ -4,6 +4,7 @@
 // Library needed for processing files
 #include <QFile>
 #include<iostream>
+#include "obj.h"
 
 class File
 {
@@ -12,8 +13,8 @@ protected:
     File(const QString&);
 public:
     virtual ~File() = 0;
-    virtual File* FromFileToObj() const = 0;
-    virtual File* FromObjToFile() const = 0;
+    virtual const Obj& FromFileToObj() const = 0;
+    virtual void FromObjToFile(const Obj&) = 0;
 };
 
 #endif // FILE_H

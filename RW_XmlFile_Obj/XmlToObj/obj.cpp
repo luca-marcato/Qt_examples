@@ -1,7 +1,7 @@
 #include "obj.h"
 
-Obj::Obj(const std::string& bYear, const std::string& bBoard, const std::string& cId, const std::string& name, File* f) :
-    bomYear(bYear), bomBoard(bBoard), componentId(cId), name(name), file(f) {}
+Obj::Obj(const std::string& bYear, const std::string& bBoard, const std::string& cId, const std::string& name) :
+    bomYear(bYear), bomBoard(bBoard), componentId(cId), name(name){}
 
 std::string Obj::getBomYear() const {
     return bomYear;
@@ -33,14 +33,6 @@ void Obj::setComponentId(std::string cId) {
 
 void Obj::setName(std::string name) {
     name = name;
-}
-
-void Obj::saveToFile() const {
-    if(file != nullptr) {
-        file->FromFileToObj()
-    } else {
-
-    }
 }
 
 std::ostream& operator <<(std::ostream& os, const Obj& obj) {
