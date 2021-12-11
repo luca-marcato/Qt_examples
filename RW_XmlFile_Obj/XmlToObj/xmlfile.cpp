@@ -7,7 +7,7 @@ XmlFile::XmlFile(const QString& name): File(name), xmlFile() {
 
 XmlFile::~XmlFile() {}
 
-const Obj& XmlFile::FromFileToObj() const {
+Obj XmlFile::FromFileToObj() const {
     QDomElement mainTag = xmlFile.documentElement();
     QString bYear = mainTag.attribute("YEAR");
     QString bBoard = mainTag.attribute("BOARD");
@@ -32,14 +32,14 @@ const Obj& XmlFile::FromFileToObj() const {
 void XmlFile::FromObjToFile(const Obj& obj) {
     QDomDocument doc;
     QDomElement billofmaterial = doc.createElement("BOM");
-    billofmaterial.setAttribute("BOARD",obj.getBomBoard());
-    billofmaterial.setAttribute("YEAR", obj.getBomYear());
+    billofmaterial.setAttribute("BOARD", QString::fromStdString(obj.getBomBoard()));
+    billofmaterial.setAttribute("YEAR", QString::fromStdString(obj.getBomYear()));
 
     QDomElement componentTag = doc.createElement("COMPONENT");
-    componentTag.setAttribute("ID", obj.getBomYear());
+    componentTag.setAttribute("ID", QString::fromStdString(obj.getBomYear()));
 
     QDomElement nameTag = doc.createElement(QString("NAME"));
-    QDomText nameText = doc.createTextNode(obj.getName());
+    QDomText nameText = doc.createTextNode(QString::fromStdString(obj.getName()));
     nameTag.appendChild(nameText);
 
     componentTag.appendChild(nameTag);

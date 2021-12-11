@@ -37,7 +37,7 @@ void Obj::setName(std::string name) {
 
 std::ostream& operator <<(std::ostream& os, const Obj& obj) {
     return os << "Bom Year: " << obj.getBomYear()
-              << "Bom Board: " << obj.getBomBoard()
-              << "Component Id: " << obj.getComponentId()
-              << "Name: " << obj.getName();
+              << " Bom Board: " << obj.getBomBoard()
+              << " Component Id: " << obj.getComponentId()
+              << " Name: " << obj.getName();
 }

@@ -13,7 +13,7 @@ protected:
     File(const QString&);
 public:
     virtual ~File() = 0;
-    virtual const Obj& FromFileToObj() const = 0;
+    virtual Obj FromFileToObj() const = 0;
     virtual void FromObjToFile(const Obj&) = 0;
 };
 
