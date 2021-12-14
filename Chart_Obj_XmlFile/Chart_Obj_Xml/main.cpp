@@ -17,19 +17,15 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-/* BARCHART
+// BARCHART
 //![1]
     QBarSet *set0 = new QBarSet("Jane");
     QBarSet *set1 = new QBarSet("John");
     QBarSet *set2 = new QBarSet("Axel");
-    QBarSet *set3 = new QBarSet("Mary");
-    QBarSet *set4 = new QBarSet("Samantha");
 
-    *set0 << 1 << 2 << 3 << 4 << 5 << 6;
-    *set1 << 5 << 0 << 0 << 4 << 0 << 7;
-    *set2 << 3 << 5 << 8 << 13 << 8 << 5;
-    *set3 << 5 << 6 << 7 << 3 << 4 << 5;
-    *set4 << 9 << 7 << 5 << 3 << 1 << 2;
+    *set0 << 1;
+    *set1 << 5;
+    *set2 << 3;
 //![1]
 
 //![2]
@@ -37,8 +33,6 @@ int main(int argc, char *argv[])
     series->append(set0);
     series->append(set1);
     series->append(set2);
-    series->append(set3);
-    series->append(set4);
 
 //![2]
 
@@ -51,14 +45,14 @@ int main(int argc, char *argv[])
 
 //![4]
     QStringList categories;
-    categories << "Jan" << "Feb" << "Mar" << "Apr" << "May" << "Jun";
+    categories << "Jan";
     QBarCategoryAxis *axisX = new QBarCategoryAxis();
     axisX->append(categories);
     chart->addAxis(axisX, Qt::AlignBottom);
     series->attachAxis(axisX);
 
     QValueAxis *axisY = new QValueAxis();
-    axisY->setRange(0,15);
+    axisY->setRange(0,5);
     chart->addAxis(axisY, Qt::AlignLeft);
     series->attachAxis(axisY);
 //![4]
@@ -168,6 +162,9 @@ int main(int argc, char *argv[])
         window.resize(420, 300);
         window.show();
     //![7] */
+
+
+
 
 
 
