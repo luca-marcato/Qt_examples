@@ -12,11 +12,13 @@ class BarChart : public Chart
 private:
     QBarSeries *series;
     QBarCategoryAxis *axisX;
+    QValueAxis *axisY;
 protected:
-    void addSeries() override;
-    virtual void addCategories();
+    void addSeries() const override;
+    virtual void addCategories() const;
+    virtual void setRange() const;
 public:
-    BarChart(const Obj& =Obj());
+    BarChart(Obj* obj =nullptr);
     QChartView* show() const override;
 
 };

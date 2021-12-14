@@ -20,6 +20,7 @@ public:
     void setVal2(int);
     void setVal3(int);
     void setName(std::string);
+    int getMaxValue() const;
 };
 
 std::ostream& operator <<(std::ostream&, const Obj&);

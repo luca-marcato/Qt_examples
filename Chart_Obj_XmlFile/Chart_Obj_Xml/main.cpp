@@ -10,6 +10,7 @@
 #include <QtCharts/QPieSlice>
 #include <QtCharts/QHorizontalStackedBarSeries>
 
+#include "barchart.h"
 
 QT_CHARTS_USE_NAMESPACE
 
@@ -17,7 +18,15 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-// BARCHART
+    Obj* obj = new Obj(100,20,30,"Gennaio");
+    BarChart* barChart = new BarChart(obj);
+
+    QMainWindow window;
+    window.setCentralWidget(barChart->show());
+    window.resize(420, 300);
+    window.show();
+
+/* BARCHART
 //![1]
     QBarSet *set0 = new QBarSet("Jane");
     QBarSet *set1 = new QBarSet("John");

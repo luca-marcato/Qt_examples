@@ -35,6 +35,13 @@ void Obj::setName(std::string name) {
     name = name;
 }
 
+int Obj::getMaxValue() const {
+    int max = val1;
+    if(max < val2) max = val2;
+    if(max < val3) max = val3;
+    return max;
+}
+
 std::ostream& operator <<(std::ostream& os, const Obj& obj) {
     return os << "Bom Year: " << obj.getVal1()
               << " Bom Board: " << obj.getVal2()

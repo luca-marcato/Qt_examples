@@ -11,12 +11,13 @@ class Chart
 {
 private:
     std::string title;
-    QChart *chart;
 protected:
-    Obj obj;
-    Chart(const Obj&, const std::string& =std::string());
-    virtual void addSeries() = 0;
+    QChart *chart;
+    Obj *obj;
+    Chart(Obj*, const std::string& =std::string());
+    virtual void addSeries() const = 0;
 public:
+    virtual ~Chart() =default;
     virtual QChartView* show() const;
 };
 
