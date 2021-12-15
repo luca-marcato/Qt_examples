@@ -21,6 +21,7 @@ public:
     void setVal3(int);
     void setName(std::string);
     int getMaxValue() const;
+    int getTotalValue() const;
 };
 
 std::ostream& operator <<(std::ostream&, const Obj&);

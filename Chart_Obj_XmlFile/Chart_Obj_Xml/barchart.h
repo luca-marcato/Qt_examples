@@ -5,6 +5,7 @@
 #include <QtCharts/QBarSet>
 #include <QtCharts/QBarCategoryAxis>
 #include <QtCharts/QValueAxis>
+
 #include "chart.h"
 
 class BarChart : public Chart
@@ -15,10 +16,10 @@ private:
     QValueAxis *axisY;
 protected:
     void addSeries() const override;
-    virtual void addCategories() const;
-    virtual void setRange() const;
+    void addCategories() const;
+    void setRange() const;
 public:
-    BarChart(Obj* obj =nullptr);
+    BarChart(Obj* obj =nullptr, const std::string& =std::string());
     QChartView* show() const override;
 
 };

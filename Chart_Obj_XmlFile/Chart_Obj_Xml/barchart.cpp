@@ -1,6 +1,6 @@
 #include "barchart.h"
 
-BarChart::BarChart(Obj* obj) : Chart(obj),
+BarChart::BarChart(Obj* obj, const std::string& title) : Chart(obj, title),
                                series(new QBarSeries()),
                                axisX(new QBarCategoryAxis()),
                                axisY(new QValueAxis()) {}
@@ -41,5 +41,6 @@ QChartView* BarChart::show() const {
     chart->addSeries(series);
     chart->addAxis(axisX, Qt::AlignBottom);
     chart->addAxis(axisY, Qt::AlignLeft);
+    chart->legend()->setVisible(true);
     return Chart::show();
 }

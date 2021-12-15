@@ -11,20 +11,24 @@
 #include <QtCharts/QHorizontalStackedBarSeries>
 
 #include "barchart.h"
+#include "piechart.h"
+#include "stacked_horizontal_barchart.h"
 
 QT_CHARTS_USE_NAMESPACE
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
+/*
     Obj* obj = new Obj(100,20,30,"Gennaio");
-    BarChart* barChart = new BarChart(obj);
+    BarChart* barChart = new BarChart(obj, "title");
 
     QMainWindow window;
     window.setCentralWidget(barChart->show());
     window.resize(420, 300);
     window.show();
+
+*/
 
 /* BARCHART
 //![1]
@@ -83,32 +87,51 @@ int main(int argc, char *argv[])
     window.show();
 //![7] */
 
+    /*
+    Obj* obj = new Obj(100,20,30,"Gennaio");
+    PieChart* pieChart = new PieChart(obj, "title");
+
+    QMainWindow window;
+    window.setCentralWidget(pieChart->show());
+    window.resize(420, 300);
+    window.show();
+ //*/
 /* PIECHART
     //![1]
-        QPieSeries *series = new QPieSeries();
-        series->append("Jane", 1);
-        series->append("Joe", 2);
-        series->append("Andy", 3);
-        series->append("Barbara", 4);
-        series->append("Axel", 5);
-    //![1]
+    QPieSeries *series = new QPieSeries();
+    series->append("Jane", 1);
+    series->append("Joe", 2);
+    series->append("Andy", 3);
+    series->append("Barbara", 4);
+    series->append("Axel", 5);
 
-    //![3]
-        QChart *chart = new QChart();
-        chart->addSeries(series);
-        chart->setTitle("Simple piechart example");
-    //![3]
+    QPieSlice *slice = series->slices().at(1);
+    slice->setExploded();
+    slice->setLabelVisible();
+    slice->setPen(QPen(Qt::darkGreen, 2));
+    slice->setBrush(Qt::green);
 
-    //![4]
-        QChartView *chartView = new QChartView(chart);
-        chartView->setRenderHint(QPainter::Antialiasing);
-    //![4]
+    QChart *chart = new QChart();
+    chart->addSeries(series);
+    chart->setTitle("Simple piechart example");
+    chart->legend()->hide();
 
-    //![5]
-        QMainWindow window;
-        window.setCentralWidget(chartView);
-        window.resize(400, 300);
-        window.show(); */
+    QChartView *chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+
+    QMainWindow window;
+    window.setCentralWidget(chartView);
+    window.resize(400, 300);
+    window.show();
+        // */
+
+    Obj* obj = new Obj(100,20,30,"Gennaio");
+    StackedHorizontalBarChart* shBarchart = new StackedHorizontalBarChart(obj, "title");
+
+    QMainWindow window;
+    window.setCentralWidget(shBarchart->show());
+    window.resize(420, 300);
+    window.show();
 
 
     /* STACKED HORIZONTAL BARCHAR
@@ -151,8 +174,9 @@ int main(int argc, char *argv[])
         chart->addAxis(axisY, Qt::AlignLeft);
         series->attachAxis(axisY);
         QValueAxis *axisX = new QValueAxis();
-        chart->addAxis(axisX, Qt::AlignBottom);
         series->attachAxis(axisX);
+        chart->addAxis(axisX, Qt::AlignBottom);
+
     //![4]
 
     //![5]

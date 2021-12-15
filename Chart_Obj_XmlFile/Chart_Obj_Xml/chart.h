@@ -3,6 +3,7 @@
 
 #include <QtCharts/QChartView>
 #include <QtCharts/QLegend>
+
 #include "obj.h"
 
 using namespace QtCharts;
@@ -14,10 +15,10 @@ private:
 protected:
     QChart *chart;
     Obj *obj;
-    Chart(Obj*, const std::string& =std::string());
+    Chart(Obj*, const std::string&);
     virtual void addSeries() const = 0;
 public:
-    virtual ~Chart() =default;
+    virtual ~Chart();
     virtual QChartView* show() const;
 };
 

@@ -42,6 +42,10 @@ int Obj::getMaxValue() const {
     return max;
 }
 
+int Obj::getTotalValue() const {
+    return val1 + val2 + val3;
+}
+
 std::ostream& operator <<(std::ostream& os, const Obj& obj) {
     return os << "Bom Year: " << obj.getVal1()
               << " Bom Board: " << obj.getVal2()

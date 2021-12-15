@@ -18,9 +18,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp \
     chart.cpp \
     barchart.cpp\
-    obj.cpp
+    obj.cpp \
+    piechart.cpp \
+    stacked_horizontal_barchart.cpp
 
 HEADERS += \
     chart.h \
     barchart.h\
-    obj.h
+    obj.h \
+    piechart.h \
+    stacked_horizontal_barchart.h
