@@ -15,6 +15,7 @@ public:
     XmlFile(const QString&);
     ~XmlFile() override;
     Obj FromFileToObj() const override;
+    void FromObjToFile(const Obj&) override;
 
 };
 
