@@ -8,6 +8,9 @@ XmlFile::XmlFile(const QString& name): File(name), xmlFile() {
 XmlFile::~XmlFile() {}
 
 Obj XmlFile::FromFileToObj() const {
+
+    QDomElement mainTag
+
     /*QDomElement mainTag = xmlFile.documentElement();
     QString bYear = mainTag.attribute("YEAR");
     QString bBoard = mainTag.attribute("BOARD");
