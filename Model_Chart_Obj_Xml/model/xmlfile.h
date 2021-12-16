@@ -11,8 +11,7 @@ class XmlFile: public File
 private:
     QDomDocument xmlFile;
 public:
-    XmlFile();
-    XmlFile(const QString&);
+    XmlFile(const QString& =QString());
     ~XmlFile() override;
     Obj* FromFileToObj() const override;
     void FromObjToFile(Obj*) override;

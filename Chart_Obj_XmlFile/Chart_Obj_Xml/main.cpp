@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
     window.resize(420, 300);
     window.show();
 
-*/
+//*/
 
 /* BARCHART
 //![1]
@@ -124,7 +124,7 @@ int main(int argc, char *argv[])
     window.resize(400, 300);
     window.show();
         // */
-
+//
     Obj* obj = new Obj(100,20,30,"Gennaio");
     StackedHorizontalBarChart* shBarchart = new StackedHorizontalBarChart(obj, "title");
 
@@ -133,7 +133,7 @@ int main(int argc, char *argv[])
     window.resize(420, 300);
     window.show();
 
-
+//*/
     /* STACKED HORIZONTAL BARCHAR
     //![1]
         QBarSet *set0 = new QBarSet("Jane");

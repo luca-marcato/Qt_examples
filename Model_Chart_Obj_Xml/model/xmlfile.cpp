@@ -9,7 +9,28 @@ XmlFile::~XmlFile() {}
 
 Obj XmlFile::FromFileToObj() const {
 
-    QDomElement mainTag
+    QDomElement mainTag = xmlFile.documentElement();
+    if(!mainTag.isElement()) std::cerr << "FileFormatError: Tag MAIN not found";
+
+    QDomElement componentTag = mainTag.firstChild().toElement();
+
+    if(componentTag.isElement() && componentTag.tagName() == "COMPONENT") {
+        //cicle
+        int componentId = componentTag.attribute("ID").toInt();
+        std::cout << componentId;
+        QDomNodeList listComponent = componentTag.childNodes();
+
+        QDomElement dateTag = list.at(0).toElement();
+        if(dateTag.isElement() && date.dateTag() == "DATE") {
+            QDomNodeList listDate = dateTag.childNodes();
+
+        } else {
+            std::cerr << "FileFormatError: Tag DATE not found";
+        }
+
+    } else {
+        std::cerr << "FileFormatError: Tag COMPONENT not found";
+    }
 
     /*QDomElement mainTag = xmlFile.documentElement();
     QString bYear = mainTag.attribute("YEAR");

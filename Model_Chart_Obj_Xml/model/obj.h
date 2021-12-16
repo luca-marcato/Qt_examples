@@ -18,11 +18,11 @@ private:
 
     class Component {
     public:
-        std::string B2B;
-        std::string B2C;
-        std::string B2G;
+        int B2B;
+        int B2C;
+        int B2G;
         int id;
-        Component(const std::string& =std::string(), const std::string& =std::string(), const std::string& =std::string(), int =0);
+        Component(int =0, int =0, int =0, int =0);
     };
     Component component;
 
@@ -30,24 +30,21 @@ public:
 
     Obj(const std::string& =std::string(),
         const std::string& =std::string(),
-        const std::string& =std::string(),
-        const std::string& =std::string(),
-        const std::string& =std::string(),
-        int =0);
+        int =0, int =0, int =0, int =0);
 
 
     std::string getDate() const;
     std::string getMonth() const;
     std::string getYear() const;
-    std::string  getB2BVal() const;
-    std::string  getB2CVal() const;
-    std::string  getB2GVal() const;
+    int  getB2BVal() const;
+    int  getB2CVal() const;
+    int  getB2GVal() const;
 
     void setYear(std::string);
-    void setMonth(td::string);
-    void setB2BVal(std::string);
-    void setB2CVal(std::string);
-    void setB2GVal(std::string);
+    void setMonth(std::string);
+    void setB2BVal(int);
+    void setB2CVal(int);
+    void setB2GVal(int);
 
     int getMaxValue() const;
     int getTotalValue() const;
