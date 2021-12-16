@@ -9,8 +9,8 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     //create a obj by reading the file content
-    XmlFile file1("template.xml");
-    Obj* obj = file1.FromFileToObj();
+    XmlFile file("template.xml");
+    Obj* obj = file.FromFileToObj();
     std::cout<<"OBJ: " << obj <<std::endl;
 
     MainWindow w;

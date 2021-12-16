@@ -7,30 +7,57 @@ XmlFile::XmlFile(const QString& name): File(name), xmlFile() {
 
 XmlFile::~XmlFile() {}
 
-Obj XmlFile::FromFileToObj() const {
+Obj* XmlFile::FromFileToObj() const {
 
     QDomElement mainTag = xmlFile.documentElement();
-    if(!mainTag.isElement()) std::cerr << "FileFormatError: Tag MAIN not found";
 
-    QDomElement componentTag = mainTag.firstChild().toElement();
+    if(mainTag.isNull()) std::cerr << "FileFormatError: Tag MAIN not found";
 
-    if(componentTag.isElement() && componentTag.tagName() == "COMPONENT") {
-        //cicle
-        int componentId = componentTag.attribute("ID").toInt();
-        std::cout << componentId;
-        QDomNodeList listComponent = componentTag.childNodes();
+    QDomElement component = mainTag.firstChild().toElement();
 
-        QDomElement dateTag = list.at(0).toElement();
-        if(dateTag.isElement() && date.dateTag() == "DATE") {
-            QDomNodeList listDate = dateTag.childNodes();
+    while(!component.isNull() && component.tagName() == "COMPONENT") {
 
+        int componentId;
+        if(component.hasAttribute("ID")) {
+            componentId = component.attribute("ID").toInt();
+            //TODO: validate input
         } else {
-            std::cerr << "FileFormatError: Tag DATE not found";
+            std::cerr << "FileFormatError: Attribute ID not found";
         }
+        std::cout<<componentId;
 
-    } else {
-        std::cerr << "FileFormatError: Tag COMPONENT not found";
+        component = component.nextSibling().toElement();
     }
+    /*for(int index = 0; index < listComponent.size(); ++index) {
+        QDomElement componentTag = listComponent.at(index).toElement();
+
+        if(componentTag.isElement() && componentTag.tagName() == "") {
+
+            int componentId;
+            if(componentTag.hasAttribute("ID")) {
+                componentId = componentTag.attribute("ID").toInt();
+            } else {
+                std::cerr << "FileFormatError: Attribute ID not found";
+            }
+
+            std::cout<< "componentId";
+            std::cout<< componentId;
+
+            QDomNodeList listComponent = componentTag.childNodes();
+
+            QDomElement dateTag = listComponent.at(0).toElement();
+            if(dateTag.isElement() && dateTag.tagName() == "DATE") {
+                QDomNodeList listDate = dateTag.childNodes();
+                QString year;
+                QString month = listDate.at(1).toElement().toText().data();
+            } else {
+                std::cerr << "FileFormatError: Tag DATE not found";
+            }
+        } else {
+            std::cerr << "FileFormatError: Tag COMPONENT not found";
+        }
+    }*/
+
 
     /*QDomElement mainTag = xmlFile.documentElement();
     QString bYear = mainTag.attribute("YEAR");
