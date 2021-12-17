@@ -5,5 +5,3 @@ File::File(const QString& name) : file(name) {
         std::cerr << "Error while loading file" << std::endl;
     }
 }
-
-File::~File() {}

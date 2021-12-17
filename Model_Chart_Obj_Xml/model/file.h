@@ -12,7 +12,7 @@ protected:
     QFile file;
     File(const QString&);
 public:
-    virtual ~File() = 0;
+    virtual ~File() =default;
     virtual Obj* FromFileToObj() const = 0;
     virtual void FromObjToFile(Obj*) = 0;
 };

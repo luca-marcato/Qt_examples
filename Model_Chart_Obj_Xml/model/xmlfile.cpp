@@ -7,6 +7,7 @@ XmlFile::XmlFile(const QString& name): File(name), xmlFile() {
 
 XmlFile::~XmlFile() {}
 
+//implementare le throw al posto degli std::cerr
 Obj* XmlFile::FromFileToObj() const {
 
     QDomElement mainTag = xmlFile.documentElement();
@@ -15,70 +16,70 @@ Obj* XmlFile::FromFileToObj() const {
 
     QDomElement component = mainTag.firstChild().toElement();
 
-    while(!component.isNull() && component.tagName() == "COMPONENT") {
-
-        int componentId;
-        if(component.hasAttribute("ID")) {
-            componentId = component.attribute("ID").toInt();
-            //TODO: validate input
-        } else {
-            std::cerr << "FileFormatError: Attribute ID not found";
-        }
-        std::cout<<componentId;
-
-        component = component.nextSibling().toElement();
-    }
-    /*for(int index = 0; index < listComponent.size(); ++index) {
-        QDomElement componentTag = listComponent.at(index).toElement();
-
-        if(componentTag.isElement() && componentTag.tagName() == "") {
+    while(!component.isNull()) {
+        if(component.tagName() == "COMPONENT") {
 
             int componentId;
-            if(componentTag.hasAttribute("ID")) {
-                componentId = componentTag.attribute("ID").toInt();
+
+            if(!component.hasAttribute("ID")) std::cerr << "FileFormatError: Attribute ID not found";
+            componentId = component.attribute("ID").toInt();
+
+            std::string year;
+            std::string month;
+
+            //if(component.firstChild().isNull()) std::cerr << "FileFormatError: DATE or VALUES Tag not found";
+            QDomElement componentBody = component.firstChild().toElement();
+            if(componentBody.tagName() == "DATE") {
+                //if(componentBody.firstChild().toElement().isNull()) std::cerr << "FileFormatError: YEAR or MONTH Tag not found";
+                QDomElement date = componentBody.firstChild().toElement();
+                if(date.tagName() == "YEAR") {
+                    year = date.toText().data().toStdString();
+                } else {
+                    std::cerr << "FileFormatError: Expected DATE but get : " + date.tagName().toStdString();
+                }
+                if(date.tagName() == "MONTH") {
+                    month = date.toText().data().toStdString();
+                } else {
+                    std::cerr << "FileFormatError: Expected DATE but get : " + date.tagName().toStdString();
+                }
             } else {
-                std::cerr << "FileFormatError: Attribute ID not found";
+                   std::cerr << "FileFormatError: Expected DATE but get : " + componentBody.tagName().toStdString();
             }
 
-            std::cout<< "componentId";
-            std::cout<< componentId;
+            int b2b;
+            int b2c;
+            int b2g;
 
-            QDomNodeList listComponent = componentTag.childNodes();
-
-            QDomElement dateTag = listComponent.at(0).toElement();
-            if(dateTag.isElement() && dateTag.tagName() == "DATE") {
-                QDomNodeList listDate = dateTag.childNodes();
-                QString year;
-                QString month = listDate.at(1).toElement().toText().data();
+            if(componentBody.tagName() == "VALUES") {
+                QDomElement values = componentBody.firstChild().toElement();
+                if(values.tagName() == "B2B") {
+                    b2b = values.toText().data().toInt();
+                } else {
+                    std::cerr << "FileFormatError: Expected B2B but get : " + values.tagName().toStdString();
+                }
+                if(values.tagName() == "B2C") {
+                    b2c = values.toText().data().toInt();
+                } else {
+                    std::cerr << "FileFormatError: Expected B2C but get : " + values.tagName().toStdString();
+                }
+                if(values.tagName() == "B2G") {
+                    b2g = values.toText().data().toInt();
+                } else {
+                    std::cerr << "FileFormatError: Expected B2G but get : " + values.tagName().toStdString();
+                }
             } else {
-                std::cerr << "FileFormatError: Tag DATE not found";
+                std::cerr << "FileFormatError: Expected VALUES but get : " + componentBody.tagName().toStdString();
             }
+
+            return new Obj(year, month, b2b, b2c, b2g, componentId);
+
+            component = component.nextSibling().toElement();
+
         } else {
-            std::cerr << "FileFormatError: Tag COMPONENT not found";
-        }
-    }*/
-
-
-    /*QDomElement mainTag = xmlFile.documentElement();
-    QString bYear = mainTag.attribute("YEAR");
-    QString bBoard = mainTag.attribute("BOARD");
-
-    QDomElement componentTag = mainTag.firstChild().toElement();
-
-    //while(!Component.isNull())
-    if(componentTag.tagName() == "COMPONENT") {
-        QString cId = componentTag.attribute("ID");
-
-        QDomElement child = componentTag.firstChild().toElement();
-        //while (!Child.isNull())
-        if(child.tagName() == "NAME") {
-            QString name = child.firstChild().toText().data();
-            return Obj(bYear.toStdString(), bBoard.toStdString(), cId.toStdString(), name.toStdString());
-
+            std::cerr << "FileFormatError: Expected COMPONENT but get : " + component.tagName().toStdString();
         }
     }
-    return Obj();
-    */
+    return new Obj();
 }
 
 void XmlFile::FromObjToFile(Obj* obj) {
