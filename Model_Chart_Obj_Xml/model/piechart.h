@@ -11,6 +11,7 @@ private:
     QPieSeries *series;
 protected:
     virtual void addSeries() const;
+    void customize() const override;
 public:
     PieChart(Obj* =nullptr, const std::string& ="");
     QChartView* show() const override;

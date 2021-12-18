@@ -13,10 +13,12 @@ int main(int argc, char *argv[])
 
     Obj* obj = new Obj("2002", "Gennaio", 1111, 12321, 211);
     BarChart* barChart = new BarChart(obj, "title");
+    PieChart* pieChart = new PieChart(obj, "title");
+    StackedHorizontalBarChart* shChart = new StackedHorizontalBarChart(obj, "title");
 
     MainWindow w;
 
-    w.setCentralWidget(barChart->show());
+    w.setCentralWidget(pieChart->show());
     w.resize(420, 300);
 
     w.show();

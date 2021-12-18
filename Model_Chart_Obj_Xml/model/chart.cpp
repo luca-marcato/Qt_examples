@@ -4,6 +4,14 @@ Chart::Chart(Obj* obj, const std::string& title) : title(title), chart(new QChar
 
 Chart::~Chart() {}
 
+void Chart::customized(bool custom) {
+    custom = custom;
+}
+
+bool Chart::isCustomized() const {
+    return custom;
+}
+
 QChartView* Chart::show() const {
     chart->setTitle(QString::fromStdString(title));
     chart->legend()->setAlignment(Qt::AlignBottom);

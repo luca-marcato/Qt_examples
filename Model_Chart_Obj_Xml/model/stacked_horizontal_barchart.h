@@ -17,6 +17,7 @@ private:
     QValueAxis *axisX;
 protected:
     void addSeries() const override;
+    void customize() const override;
     void addCategories() const;
     void setRange() const;
 public:

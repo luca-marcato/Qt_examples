@@ -33,10 +33,61 @@ void BarChart::setRange() const {
     series->attachAxis(axisY);
 }
 
+void BarChart::customize() const {
+    QFont font;
+    font.setPixelSize(18);
+    chart->setTitleFont(font);
+    chart->setTitleBrush(QBrush(Qt::white));
+
+    // Customize chart background
+    QLinearGradient backgroundGradient;
+    backgroundGradient.setStart(QPointF(0, 0));
+    backgroundGradient.setFinalStop(QPointF(0, 1));
+    backgroundGradient.setColorAt(0.0, QRgb(0xd2d0d1));
+    backgroundGradient.setColorAt(1.0, QRgb(0x4c4547));
+    backgroundGradient.setCoordinateMode(QGradient::ObjectBoundingMode);
+    chart->setBackgroundBrush(backgroundGradient);
+
+       // Customize plot area background
+    QLinearGradient plotAreaGradient;
+    plotAreaGradient.setStart(QPointF(0, 1));
+    plotAreaGradient.setFinalStop(QPointF(1, 0));
+    plotAreaGradient.setColorAt(0.0, QRgb(0x555555));
+    plotAreaGradient.setColorAt(1.0, QRgb(0x55aa55));
+    plotAreaGradient.setCoordinateMode(QGradient::ObjectBoundingMode);
+    chart->setPlotAreaBackgroundBrush(plotAreaGradient);
+    chart->setPlotAreaBackgroundVisible(true);
+
+    QFont labelsFont;
+    labelsFont.setPixelSize(12);
+    axisX->setLabelsFont(labelsFont);
+    axisY->setLabelsFont(labelsFont);
+
+    // Customize axis colors
+    QPen axisPen(QRgb(0xd18952));
+    axisPen.setWidth(2);
+    axisX->setLinePen(axisPen);
+    axisY->setLinePen(axisPen);
+
+    // Customize axis label colors
+    QBrush axisBrush(Qt::white);
+    axisX->setLabelsBrush(axisBrush);
+    axisY->setLabelsBrush(axisBrush);
+
+    // Customize grid lines and shades
+    axisX->setGridLineVisible(false);
+    axisY->setGridLineVisible(false);
+    axisY->setShadesPen(Qt::NoPen);
+    axisY->setShadesBrush(QBrush(QColor(0x99, 0xcc, 0xcc, 0x55)));
+    axisY->setShadesVisible(true);
+}
+
 QChartView* BarChart::show() const {
     addSeries();
     addCategories();
     setRange();
+
+    if(isCustomized()) customize();
 
     chart->addSeries(series);
     chart->addAxis(axisX, Qt::AlignBottom);
