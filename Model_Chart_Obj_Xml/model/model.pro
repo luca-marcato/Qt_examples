@@ -6,6 +6,7 @@
 
 QT       += core gui
 QT       += xml
+QT       += charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -30,6 +31,10 @@ SOURCES += \
         obj.cpp \
         file.cpp \
         xmlfile.cpp \
+        chart.cpp \
+        barchart.cpp \
+        piechart.cpp \
+        stacked_horizontal_barchart.cpp \
 
 
 HEADERS += \
@@ -37,7 +42,10 @@ HEADERS += \
         obj.h \
         file.h \
         xmlfile.h \
-
+        chart.h \
+        barchart.h \
+        piechart.h \
+        stacked_horizontal_barchart.h \
 
 FORMS += \
         mainwindow.ui

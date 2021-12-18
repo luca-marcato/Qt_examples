@@ -11,7 +11,7 @@ private:
       public:
         std::string year;
         std::string month;
-        Date(const std::string& =std::string(), const std::string& =std::string());
+        Date(const std::string&, const std::string&);
         std::string getDate() const;
     };
     Date date;
@@ -22,14 +22,14 @@ private:
         int B2C;
         int B2G;
         int id;
-        Component(int =0, int =0, int =0, int =0);
+        Component(int, int, int, int);
     };
     Component component;
 
 public:
 
-    Obj(const std::string& =std::string(),
-        const std::string& =std::string(),
+    Obj(const std::string& ="",
+        const std::string& ="",
         int =0, int =0, int =0, int =0);
 
 
@@ -39,12 +39,14 @@ public:
     int  getB2BVal() const;
     int  getB2CVal() const;
     int  getB2GVal() const;
+    //int  getComponentId() const;
 
     void setYear(std::string);
     void setMonth(std::string);
     void setB2BVal(int);
     void setB2CVal(int);
     void setB2GVal(int);
+    //void setComponentId(int);
 
     int getMaxValue() const;
     int getTotalValue() const;

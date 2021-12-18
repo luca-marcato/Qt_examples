@@ -1,13 +1,13 @@
 <MAINTAG>
-    <COMPONENT ID="asd">
+    <COMPONENT ID="1">
         <DATE>
-            <YEAR>1</YEAR>
-            <MONTH>1</MONTH>
+            <YEAR>2021</YEAR>
+            <MONTH>02</MONTH>
         </DATE>
         <VALUES>
-            <B2B>1</B2B>
-            <B2C>1</B2C>
-            <B2G>1</B2G>
+            <B2B>1000</B2B>
+            <B2C>570</B2C>
+            <B2G>100</B2G>
         </VALUES>
     </COMPONENT>
 </MAINTAG>

@@ -5,14 +5,17 @@ XmlFile::XmlFile(const QString& name): File(name), xmlFile() {
     file.close();
 }
 
-XmlFile::~XmlFile() {}
+XmlFile::XmlFileFormatError::XmlFileFormatError(const QString& error) : errorMsg(error) {}
 
-//implementare le throw al posto degli std::cerr
+const QString& XmlFile::XmlFileFormatError::message() const {
+    return errorMsg;
+}
+
 Obj* XmlFile::FromFileToObj() const {
 
     QDomElement mainTag = xmlFile.documentElement();
 
-    if(mainTag.isNull()) std::cerr << "FileFormatError: Tag MAIN not found";
+    if(mainTag.isNull()) throw(XmlFileFormatError("FileFormatError: Tag MAIN not found"));
 
     QDomElement component = mainTag.firstChild().toElement();
 
@@ -21,30 +24,33 @@ Obj* XmlFile::FromFileToObj() const {
 
             int componentId;
 
-            if(!component.hasAttribute("ID")) std::cerr << "FileFormatError: Attribute ID not found";
+            if(!component.hasAttribute("ID")) throw(XmlFileFormatError("FileFormatError: Attribute ID not found"));
             componentId = component.attribute("ID").toInt();
 
             std::string year;
             std::string month;
 
-            //if(component.firstChild().isNull()) std::cerr << "FileFormatError: DATE or VALUES Tag not found";
             QDomElement componentBody = component.firstChild().toElement();
             if(componentBody.tagName() == "DATE") {
-                //if(componentBody.firstChild().toElement().isNull()) std::cerr << "FileFormatError: YEAR or MONTH Tag not found";
                 QDomElement date = componentBody.firstChild().toElement();
                 if(date.tagName() == "YEAR") {
-                    year = date.toText().data().toStdString();
+                    year = date.firstChild().toText().data().toStdString();
                 } else {
-                    std::cerr << "FileFormatError: Expected DATE but get : " + date.tagName().toStdString();
+                    throw(XmlFileFormatError("FileFormatError: Expected YEAR but get : " + date.tagName()));
                 }
+
+                date = date.nextSibling().toElement();
+
                 if(date.tagName() == "MONTH") {
-                    month = date.toText().data().toStdString();
+                    month = date.firstChild().toText().data().toStdString();
                 } else {
-                    std::cerr << "FileFormatError: Expected DATE but get : " + date.tagName().toStdString();
+                    throw(XmlFileFormatError("FileFormatError: Expected MONTH but get : " + date.tagName()));
                 }
             } else {
-                   std::cerr << "FileFormatError: Expected DATE but get : " + componentBody.tagName().toStdString();
+                throw(XmlFileFormatError("FileFormatError: Expected DATE but get : " + componentBody.tagName()));
             }
+
+            componentBody = componentBody.nextSibling().toElement();
 
             int b2b;
             int b2c;
@@ -53,22 +59,29 @@ Obj* XmlFile::FromFileToObj() const {
             if(componentBody.tagName() == "VALUES") {
                 QDomElement values = componentBody.firstChild().toElement();
                 if(values.tagName() == "B2B") {
-                    b2b = values.toText().data().toInt();
+                    b2b = values.firstChild().toText().data().toInt();
                 } else {
-                    std::cerr << "FileFormatError: Expected B2B but get : " + values.tagName().toStdString();
+                    throw(XmlFileFormatError("FileFormatError: Expected B2B but get : " + values.tagName()));
                 }
+
+                values = values.nextSibling().toElement();
+
                 if(values.tagName() == "B2C") {
-                    b2c = values.toText().data().toInt();
+                    b2c = values.firstChild().toText().data().toInt();
                 } else {
-                    std::cerr << "FileFormatError: Expected B2C but get : " + values.tagName().toStdString();
+                    throw(XmlFileFormatError("FileFormatError: Expected B2C but get : " + values.tagName()));
                 }
+
+                values = values.nextSibling().toElement();
+
                 if(values.tagName() == "B2G") {
-                    b2g = values.toText().data().toInt();
+                    b2g = values.firstChild().toText().data().toInt();
                 } else {
-                    std::cerr << "FileFormatError: Expected B2G but get : " + values.tagName().toStdString();
+                    throw(XmlFileFormatError("FileFormatError: Expected B2G but get : " + values.tagName()));
                 }
+
             } else {
-                std::cerr << "FileFormatError: Expected VALUES but get : " + componentBody.tagName().toStdString();
+                throw(XmlFileFormatError("FileFormatError: Expected VALUES but get : " + componentBody.tagName()));
             }
 
             return new Obj(year, month, b2b, b2c, b2g, componentId);
@@ -76,29 +89,55 @@ Obj* XmlFile::FromFileToObj() const {
             component = component.nextSibling().toElement();
 
         } else {
-            std::cerr << "FileFormatError: Expected COMPONENT but get : " + component.tagName().toStdString();
+            throw(XmlFileFormatError("FileFormatError: Expected COMPONENT but get : " + component.tagName()));
         }
     }
     return new Obj();
 }
 
 void XmlFile::FromObjToFile(Obj* obj) {
-    /*
+
     QDomDocument doc;
-    QDomElement billofmaterial = doc.createElement("BOM");
-    billofmaterial.setAttribute("BOARD", QString::fromStdString(obj.getBomBoard()));
-    billofmaterial.setAttribute("YEAR", QString::fromStdString(obj.getBomYear()));
+    QDomElement mainTag = doc.createElement("MAINTAG");
 
     QDomElement componentTag = doc.createElement("COMPONENT");
-    componentTag.setAttribute("ID", QString::fromStdString(obj.getBomYear()));
+    componentTag.setAttribute("ID", QString::fromStdString("1"));
 
-    QDomElement nameTag = doc.createElement(QString("NAME"));
-    QDomText nameText = doc.createTextNode(QString::fromStdString(obj.getName()));
-    nameTag.appendChild(nameText);
+    QDomElement dateTag = doc.createElement(QString("DATE"));
 
-    componentTag.appendChild(nameTag);
-    billofmaterial.appendChild(componentTag);
-    doc.appendChild(billofmaterial);
+    QDomElement yearTag = doc.createElement(QString("YEAR"));
+    QDomText yearText = doc.createTextNode(QString::fromStdString(obj->getYear()));
+    yearTag.appendChild(yearText);
+
+    QDomElement monthTag = doc.createElement(QString("MONTH"));
+    QDomText monthText = doc.createTextNode(QString::fromStdString(obj->getMonth()));
+    monthTag.appendChild(monthText);
+
+    dateTag.appendChild(yearTag);
+    dateTag.appendChild(monthTag);
+
+    QDomElement valuesTag = doc.createElement(QString("VALUES"));
+
+    QDomElement b2bTag = doc.createElement(QString("B2B"));
+    QDomText b2bText = doc.createTextNode(QString::number(obj->getB2BVal()));
+    b2bTag.appendChild(b2bText);
+
+    QDomElement b2cTag = doc.createElement(QString("B2C"));
+    QDomText b2cText = doc.createTextNode(QString::number(obj->getB2CVal()));
+    b2cTag.appendChild(b2cText);
+
+    QDomElement b2gTag = doc.createElement(QString("B2G"));
+    QDomText b2gText = doc.createTextNode(QString::number(obj->getB2GVal()));
+    b2gTag.appendChild(b2gText);
+
+    valuesTag.appendChild(b2bTag);
+    valuesTag.appendChild(b2cTag);
+    valuesTag.appendChild(b2gTag);
+
+    componentTag.appendChild(dateTag);
+    componentTag.appendChild(valuesTag);
+    mainTag.appendChild(componentTag);
+    doc.appendChild(mainTag);
 
     if(file.open(QFile::WriteOnly | QFile::Text)) {
         QTextStream in(&file);
@@ -106,5 +145,5 @@ void XmlFile::FromObjToFile(Obj* obj) {
         file.flush();
         file.close();
     }
-    */
+
 }

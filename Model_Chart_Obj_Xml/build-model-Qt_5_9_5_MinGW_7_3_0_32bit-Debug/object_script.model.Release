@@ -1,0 +1,12 @@
+INPUT(
+./release/main.o
+./release/mainwindow.o
+./release/obj.o
+./release/file.o
+./release/xmlfile.o
+./release/chart.o
+./release/barchart.o
+./release/piechart.o
+./release/stacked_horizontal_barchart.o
+./release/moc_mainwindow.o
+);

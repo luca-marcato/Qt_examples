@@ -1,0 +1,12 @@
+INPUT(
+./debug/main.o
+./debug/mainwindow.o
+./debug/obj.o
+./debug/file.o
+./debug/xmlfile.o
+./debug/chart.o
+./debug/barchart.o
+./debug/piechart.o
+./debug/stacked_horizontal_barchart.o
+./debug/moc_mainwindow.o
+);

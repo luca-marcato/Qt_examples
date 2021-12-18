@@ -10,7 +10,7 @@ Obj::Obj(const std::string& year, const std::string& month, int b2b, int b2c, in
     date(year, month), component(b2b, b2c, b2g, componentId) {}
 
 std::string Obj::Date::getDate() const {
-    return month + "-" + year;
+    return month + "/" + year;
 }
 
 std::string Obj::getDate() const{
@@ -69,9 +69,9 @@ int Obj::getTotalValue() const {
 }
 
 std::ostream& operator <<(std::ostream& os, const Obj& obj) {
-    return os << "Date: " << obj.getDate() <<std::endl
-              << "Values: " << std::endl
-              << "B2B: " << obj.getB2BVal()
-              << " - B2C: " << obj.getB2CVal()
-              << " - B2G: " << obj.getB2GVal();
+    return os << " OBJ: (DATE: " << obj.getDate()
+              << " - VALUES: "
+              << "b2b = " << obj.getB2BVal()
+              << ", b2c = " << obj.getB2CVal()
+              << ", b2g = " << obj.getB2GVal()<<")";
 }
