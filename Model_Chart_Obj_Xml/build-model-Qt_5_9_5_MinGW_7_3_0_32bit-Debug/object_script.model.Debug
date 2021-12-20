@@ -8,5 +8,6 @@ INPUT(
 ./debug/barchart.o
 ./debug/piechart.o
 ./debug/stacked_horizontal_barchart.o
+./debug/model.o
 ./debug/moc_mainwindow.o
 );

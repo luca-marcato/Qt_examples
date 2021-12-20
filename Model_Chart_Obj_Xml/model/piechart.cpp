@@ -1,6 +1,6 @@
 #include "piechart.h"
 
-PieChart::PieChart(Obj* obj, const std::string& title) : Chart(obj, title), series(new QPieSeries()) {}
+PieChart::PieChart(std::shared_ptr<Obj> obj, const std::string& title) : Chart(obj, title), series(new QPieSeries()) {}
 
 void PieChart::addSeries() const {
     series->append("B2B", obj->getB2BVal())->setLabelVisible();

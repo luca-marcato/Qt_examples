@@ -1,8 +1,6 @@
 #include "chart.h"
 
-Chart::Chart(Obj* obj, const std::string& title) : title(title), chart(new QChart()), obj(obj) {}
-
-Chart::~Chart() {}
+Chart::Chart(std::shared_ptr<Obj> obj, const std::string& title) : title(title), chart(new QChart()), obj(obj) {}
 
 void Chart::customized(bool custom) {
     custom = custom;
@@ -18,4 +16,8 @@ QChartView* Chart::show() const {
     QChartView *chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
     return chartView;
+}
+
+int Chart::getPtr_Count() const {
+    return obj.use_count();
 }

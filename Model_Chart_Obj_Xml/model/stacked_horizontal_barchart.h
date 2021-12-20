@@ -21,7 +21,7 @@ protected:
     void addCategories() const;
     void setRange() const;
 public:
-    StackedHorizontalBarChart(Obj* obj =nullptr, const std::string& ="");
+    StackedHorizontalBarChart(std::shared_ptr<Obj> =nullptr, const std::string& ="");
     QChartView* show() const override;
 };
 

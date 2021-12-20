@@ -1,6 +1,6 @@
 #include "stacked_horizontal_barchart.h"
 
-StackedHorizontalBarChart::StackedHorizontalBarChart(Obj* obj, const std::string& title) :
+StackedHorizontalBarChart::StackedHorizontalBarChart(std::shared_ptr<Obj> obj, const std::string& title) :
                                                    Chart(obj, title),
                                                    series(new QHorizontalStackedBarSeries()),
                                                    axisY(new QBarCategoryAxis()),

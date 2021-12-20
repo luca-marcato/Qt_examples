@@ -1,6 +1,6 @@
 #include "barchart.h"
 
-BarChart::BarChart(Obj* obj, const std::string& title) : Chart(obj, title),
+BarChart::BarChart(std::shared_ptr<Obj> obj, const std::string& title) : Chart(obj, title),
                                series(new QBarSeries()),
                                axisX(new QBarCategoryAxis()),
                                axisY(new QValueAxis()) {}

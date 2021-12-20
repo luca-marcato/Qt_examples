@@ -20,7 +20,7 @@ protected:
     void addCategories() const;
     void setRange() const;
 public:
-    BarChart(Obj* obj =nullptr, const std::string& ="");
+    BarChart(std::shared_ptr<Obj> =nullptr, const std::string& ="");
     QChartView* show() const override;
 
 };
