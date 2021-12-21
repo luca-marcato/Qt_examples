@@ -4,7 +4,12 @@
 #include <QWidget>
 #include <QBoxLayout>
 #include <QStackedLayout>
+#include <QFrame>
 #include <QPushButton>
+#include <QtCharts>
+#include <QtCharts>
+
+using namespace QtCharts;
 
 
 class Viewer : public QWidget {

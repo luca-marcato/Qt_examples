@@ -1,31 +1,44 @@
 #include "viewer.h"
 
-
-
 Viewer::Viewer(QWidget *parent) : QWidget(parent) {
     QHBoxLayout* mainLayout = new QHBoxLayout;
 
-    QVBoxLayout* sideBar = new QVBoxLayout();
+    QVBoxLayout* sideBarLayout = new QVBoxLayout;
 
-    sideBar->addWidget(new QPushButton("DashBoard"));
-    sideBar->addWidget(new QPushButton("Add New"));
-    sideBar->addWidget(new QPushButton("3"));
-    sideBar->addWidget(new QPushButton("4"));
 
-    sideBar->insertStretch(4);
-    sideBar->addStrut(200);
-    mainLayout->addLayout(sideBar);
+    sideBarLayout->addWidget(new QPushButton("DashBoard"));
+    sideBarLayout->addWidget(new QPushButton("Add New"));
+    sideBarLayout->addWidget(new QPushButton("3"));
+    sideBarLayout->addWidget(new QPushButton("4"));
 
-    QWidget *firstPageWidget = new QWidget;
-    QWidget *secondPageWidget = new QWidget;
-    QWidget *thirdPageWidget = new QWidget;
+    sideBarLayout->insertStretch(4);
+    sideBarLayout->addStrut(200);
+    mainLayout->addLayout(sideBarLayout);
 
     QStackedLayout* pagesLayout = new QStackedLayout;
-    pagesLayout->addWidget(firstPageWidget);
-    pagesLayout->addWidget(secondPageWidget);
-    pagesLayout->addWidget(thirdPageWidget);
+
+    QFrame* dashBoardFrame = new QFrame;
+    QHBoxLayout* dashBoardLayout = new QHBoxLayout;
+
+    QChartView *chartView;
+    for(int i = 0; i < 3; ++i) {
+        QVBoxLayout* chartLayout = new QVBoxLayout;
+        chartView = new QChartView(new QChart());
+        chartLayout->addWidget(chartView);
+
+        QHBoxLayout* buttonsLayout = new QHBoxLayout;
+        buttonsLayout->addWidget(new QPushButton("DashBoard"));
+        buttonsLayout->addWidget(new QPushButton("Add New"));
+        buttonsLayout->addWidget(new QPushButton("3"));
+        chartLayout->addLayout(buttonsLayout);
+
+        dashBoardLayout->addLayout(chartLayout);
+    }
+    dashBoardFrame->setLayout(dashBoardLayout);
+    pagesLayout->addWidget(dashBoardFrame);
 
     mainLayout->addLayout(pagesLayout);
 
     setLayout(mainLayout);
 }
+

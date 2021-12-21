@@ -219,6 +219,7 @@ Makefile: ../view/view.pro D:/Programs/Qt/Qt5.9.5/5.9.5/mingw53_32/mkspecs/win32
 		D:/Programs/Qt/Qt5.9.5/5.9.5/mingw53_32/mkspecs/features/lex.prf \
 		../view/view.pro \
 		D:/Programs/Qt/Qt5.9.5/5.9.5/mingw53_32/lib/qtmaind.prl \
+		D:/Programs/Qt/Qt5.9.5/5.9.5/mingw53_32/lib/Qt5Charts.prl \
 		D:/Programs/Qt/Qt5.9.5/5.9.5/mingw53_32/lib/Qt5Widgets.prl \
 		D:/Programs/Qt/Qt5.9.5/5.9.5/mingw53_32/lib/Qt5Gui.prl \
 		D:/Programs/Qt/Qt5.9.5/5.9.5/mingw53_32/lib/Qt5Core.prl
@@ -381,6 +382,7 @@ D:/Programs/Qt/Qt5.9.5/5.9.5/mingw53_32/mkspecs/features/yacc.prf:
 D:/Programs/Qt/Qt5.9.5/5.9.5/mingw53_32/mkspecs/features/lex.prf:
 ../view/view.pro:
 D:/Programs/Qt/Qt5.9.5/5.9.5/mingw53_32/lib/qtmaind.prl:
+D:/Programs/Qt/Qt5.9.5/5.9.5/mingw53_32/lib/Qt5Charts.prl:
 D:/Programs/Qt/Qt5.9.5/5.9.5/mingw53_32/lib/Qt5Widgets.prl:
 D:/Programs/Qt/Qt5.9.5/5.9.5/mingw53_32/lib/Qt5Gui.prl:
 D:/Programs/Qt/Qt5.9.5/5.9.5/mingw53_32/lib/Qt5Core.prl:
