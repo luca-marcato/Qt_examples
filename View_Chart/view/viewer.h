@@ -5,7 +5,6 @@
 #include <QBoxLayout>
 #include <QStackedLayout>
 #include <QFrame>
-#include <QPushButton>
 #include <QtCharts>
 #include <QtCharts>
 

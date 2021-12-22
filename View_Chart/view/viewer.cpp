@@ -1,24 +1,37 @@
 #include "viewer.h"
+#include "sidebar.h"
 
 Viewer::Viewer(QWidget *parent) : QWidget(parent) {
     QHBoxLayout* mainLayout = new QHBoxLayout;
 
     QVBoxLayout* sideBarLayout = new QVBoxLayout;
 
-    sideBarLayout->addWidget(new QPushButton("DashBoard"));
-    sideBarLayout->addWidget(new QPushButton("Add New"));
-    sideBarLayout->addWidget(new QPushButton("3"));
-    sideBarLayout->addWidget(new QPushButton("4"));
+    QStackedLayout* pagesLayout = new QStackedLayout;
 
-    sideBarLayout->insertStretch(4);
+    SideBar* sideBarWidget = new SideBar;
+    sideBarWidget->addButton(new QPushButton("DashBoard"));
+    sideBarWidget->addButton(new QPushButton("Add New"));
+
+    for(int i = 0; i < sideBarWidget->countButton(); ++i) {
+        connect(sideBarWidget->buttonAt(i), sideBarWidget->buttonAt(i)->onPressed(),
+                    pagesLayout, &QStackedLayout::setCurrentIndex);
+
+        sideBarLayout->addWidget(sideBarWidget->buttonAt(i));
+    }
+
+    sideBarLayout->insertStretch(sideBarWidget->countButton());
     sideBarLayout->addStrut(200);
 
     mainLayout->addLayout(sideBarLayout);
 
-    QStackedLayout* pagesLayout = new QStackedLayout;
-
     QFrame* dashBoardFrame = new QFrame;
     QVBoxLayout* dashBoardLayout = new QVBoxLayout;
+
+    QHBoxLayout* editButtonsLayout = new QHBoxLayout;
+    editButtonsLayout->addWidget(new QPushButton("1"));
+    editButtonsLayout->addWidget(new QPushButton("2"));
+
+    dashBoardLayout->addLayout(editButtonsLayout);
 
     QChartView *chartView;
     QHBoxLayout* chartLayout = new QHBoxLayout;
@@ -31,23 +44,20 @@ Viewer::Viewer(QWidget *parent) : QWidget(parent) {
         chartButtonsLayout->addWidget(new QPushButton("DashBoard"));
         chartButtonsLayout->addWidget(new QPushButton("Add New"));
         chartButtonsLayout->addWidget(new QPushButton("3"));
+        chartButtonsLayout->addStrut(50);
         chartBoxLayout->addLayout(chartButtonsLayout);
 
+        chartBoxLayout->addStrut(350);
         chartLayout->addLayout(chartBoxLayout);
     }
+    chartLayout->addStrut(350);
     dashBoardLayout->addLayout(chartLayout);
-
-    QHBoxLayout* editButtonsLayout = new QHBoxLayout;
-    editButtonsLayout->addWidget(new QPushButton("1"));
-    editButtonsLayout->addWidget(new QPushButton("2"));
-    editButtonsLayout->insertStretch(0);
-
-    dashBoardLayout->addLayout(editButtonsLayout);
 
     QHBoxLayout* controllButtonsLayout = new QHBoxLayout;
     controllButtonsLayout->addWidget(new QPushButton("1"));
     controllButtonsLayout->addWidget(new QPushButton("2"));
 
+    controllButtonsLayout->addStrut(200);
     dashBoardLayout->addLayout(controllButtonsLayout);
 
     dashBoardFrame->setLayout(dashBoardLayout);
