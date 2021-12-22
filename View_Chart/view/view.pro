@@ -27,8 +27,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
     viewer.cpp \
-    sidebar.cpp
+    sidebar.cpp \
+    spoiler.cpp
 
 HEADERS += \
     viewer.h \
-    sidebar.h
+    sidebar.h \
+    spoiler.h

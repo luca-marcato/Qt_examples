@@ -4,9 +4,8 @@
 #include <QWidget>
 #include <QBoxLayout>
 #include <QStackedLayout>
-#include <QFrame>
 #include <QtCharts>
-#include <QtCharts>
+#include <QTextEdit>
 
 using namespace QtCharts;
 

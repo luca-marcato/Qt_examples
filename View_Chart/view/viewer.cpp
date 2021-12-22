@@ -1,30 +1,18 @@
 #include "viewer.h"
-#include "sidebar.h"
+#include "spoiler.h"
 
 Viewer::Viewer(QWidget *parent) : QWidget(parent) {
     QHBoxLayout* mainLayout = new QHBoxLayout;
 
     QVBoxLayout* sideBarLayout = new QVBoxLayout;
 
-    QStackedLayout* pagesLayout = new QStackedLayout;
+    sideBarLayout->addWidget(new QPushButton("Add New"));
 
-    SideBar* sideBarWidget = new SideBar;
-    sideBarWidget->addButton(new QPushButton("DashBoard"));
-    sideBarWidget->addButton(new QPushButton("Add New"));
-
-    for(int i = 0; i < sideBarWidget->countButton(); ++i) {
-        connect(sideBarWidget->buttonAt(i), sideBarWidget->buttonAt(i)->onPressed(),
-                    pagesLayout, &QStackedLayout::setCurrentIndex);
-
-        sideBarLayout->addWidget(sideBarWidget->buttonAt(i));
-    }
-
-    sideBarLayout->insertStretch(sideBarWidget->countButton());
+    sideBarLayout->insertStretch(1);
     sideBarLayout->addStrut(200);
 
     mainLayout->addLayout(sideBarLayout);
 
-    QFrame* dashBoardFrame = new QFrame;
     QVBoxLayout* dashBoardLayout = new QVBoxLayout;
 
     QHBoxLayout* editButtonsLayout = new QHBoxLayout;
@@ -40,16 +28,21 @@ Viewer::Viewer(QWidget *parent) : QWidget(parent) {
         chartView = new QChartView(new QChart());
         chartBoxLayout->addWidget(chartView);
 
-        QHBoxLayout* chartButtonsLayout = new QHBoxLayout;
-        chartButtonsLayout->addWidget(new QPushButton("DashBoard"));
-        chartButtonsLayout->addWidget(new QPushButton("Add New"));
-        chartButtonsLayout->addWidget(new QPushButton("3"));
-        chartButtonsLayout->addStrut(50);
-        chartBoxLayout->addLayout(chartButtonsLayout);
+        QVBoxLayout *infoLayout = new QVBoxLayout;
+        QLabel *label = new QLabel();
+        label->setText("CHARTa");
+        label->setAlignment(Qt::AlignHCenter);
+        infoLayout->addWidget(label);
+
+        Spoiler* spoiler = new Spoiler("Info:");
+        spoiler->setContentLayout(*infoLayout);
+
+        chartBoxLayout->addWidget(spoiler);
 
         chartBoxLayout->addStrut(350);
         chartLayout->addLayout(chartBoxLayout);
     }
+
     chartLayout->addStrut(350);
     dashBoardLayout->addLayout(chartLayout);
 
@@ -60,10 +53,7 @@ Viewer::Viewer(QWidget *parent) : QWidget(parent) {
     controllButtonsLayout->addStrut(200);
     dashBoardLayout->addLayout(controllButtonsLayout);
 
-    dashBoardFrame->setLayout(dashBoardLayout);
-    pagesLayout->addWidget(dashBoardFrame);
-
-    mainLayout->addLayout(pagesLayout);
+    mainLayout->addLayout(dashBoardLayout);
 
     setLayout(mainLayout);
 }
