@@ -27,10 +27,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
     viewer.cpp \
-    sidebar.cpp \
-    spoiler.cpp
+    spoiler.cpp \
+    slidingstackedwidget.cpp \
+    stackedwidgetslider.cpp
 
 HEADERS += \
     viewer.h \
-    sidebar.h \
-    spoiler.h
+    spoiler.h \
+    slidingstackedwidget.h \
+    stackedwidgetslider.h
