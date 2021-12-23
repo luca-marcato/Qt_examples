@@ -72,3 +72,7 @@ void StackedWidgetSlider::createConnections() {
     QObject::connect(dashBoard,SIGNAL(pressed()),slidingStacked,SLOT(slideInPrev()));
     QObject::connect(addNew,SIGNAL(pressed()),slidingStacked,SLOT(slideInNext()));
 }
+
+SlidingStackedWidget* StackedWidgetSlider::getSlidingStackedWidget() const {
+    return slidingStacked;
+}
