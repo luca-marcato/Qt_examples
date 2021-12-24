@@ -5,7 +5,6 @@
 #include <QBoxLayout>
 #include <QStackedLayout>
 #include <QtCharts>
-#include <QTextEdit>
 
 using namespace QtCharts;
 
