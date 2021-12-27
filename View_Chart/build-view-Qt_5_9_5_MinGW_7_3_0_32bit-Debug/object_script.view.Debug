@@ -1,0 +1,15 @@
+INPUT(
+./debug/main.o
+./debug/viewer.o
+./debug/spoiler.o
+./debug/slidingstackedwidget.o
+./debug/stackedwidgetslider.o
+./debug/droparea.o
+./debug/dropsitewindow.o
+./debug/moc_viewer.o
+./debug/moc_spoiler.o
+./debug/moc_slidingstackedwidget.o
+./debug/moc_stackedwidgetslider.o
+./debug/moc_droparea.o
+./debug/moc_dropsitewindow.o
+);

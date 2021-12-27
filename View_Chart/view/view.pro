@@ -29,10 +29,14 @@ SOURCES += \
     viewer.cpp \
     spoiler.cpp \
     slidingstackedwidget.cpp \
-    stackedwidgetslider.cpp
+    stackedwidgetslider.cpp \
+    droparea.cpp \
+    dropsitewindow.cpp
 
 HEADERS += \
     viewer.h \
     spoiler.h \
     slidingstackedwidget.h \
-    stackedwidgetslider.h
+    stackedwidgetslider.h \
+    droparea.h \
+    dropsitewindow.h

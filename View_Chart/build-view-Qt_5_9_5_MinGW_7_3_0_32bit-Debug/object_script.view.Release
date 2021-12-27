@@ -1,0 +1,15 @@
+INPUT(
+./release/main.o
+./release/viewer.o
+./release/spoiler.o
+./release/slidingstackedwidget.o
+./release/stackedwidgetslider.o
+./release/droparea.o
+./release/dropsitewindow.o
+./release/moc_viewer.o
+./release/moc_spoiler.o
+./release/moc_slidingstackedwidget.o
+./release/moc_stackedwidgetslider.o
+./release/moc_droparea.o
+./release/moc_dropsitewindow.o
+);
