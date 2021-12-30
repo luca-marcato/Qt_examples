@@ -37,7 +37,10 @@ void StackedWidgetSlider::createSlidingStackedWidget() {
     QVBoxLayout* dashBoardLayout = new QVBoxLayout;
 
     QHBoxLayout* editButtonsLayout = new QHBoxLayout;
-    editButtonsLayout->addWidget(new QPushButton("Modifica"));
+    QPushButton* modifyButton = new QPushButton("Modify");
+    editButtonsLayout->addWidget(modifyButton);
+
+    connect(modifyButton, SIGNAL(pressed()), slidingStacked,SLOT(slideInNext()));
 
     editButtonsLayout->insertStretch(0);
     dashBoardLayout->addLayout(editButtonsLayout);
@@ -94,8 +97,12 @@ void StackedWidgetSlider::createSlidingStackedWidget() {
 
     QHBoxLayout* controllButtonsLayout = new QHBoxLayout;
 
-    controllButtonsLayout->addWidget(new QPushButton("1"));
-    controllButtonsLayout->addWidget(new QPushButton("2"));
+    QDateTimeEdit* calendar = new QDateTimeEdit();
+    calendar->setDisplayFormat("MM/yyyy");
+    calendar->setCurrentSection(QDateTimeEdit::MonthSection);
+    controllButtonsLayout->addWidget(calendar);
+    QPushButton* searchDate = new QPushButton("Get Chart");
+    controllButtonsLayout->addWidget(searchDate);
 
     controllButtonsLayout->addStrut(200);
     dashBoardLayout->addLayout(controllButtonsLayout);
@@ -150,19 +157,16 @@ void StackedWidgetSlider::createSlidingStackedWidget() {
     QLabel* B2GLabel = new QLabel();
     B2GLabel->setText("B2G: ");
     QSpinBox* b2g = new QSpinBox();
-    b2b->setRange(0, 2147483647); // INT max value = +2147483647
+    b2g->setRange(0, 2147483647); // INT max value = +2147483647
     formRow4->addWidget(B2GLabel);
     formRow4->addWidget(b2g);
     formLayout->addLayout(formRow4);
 
-    QPushButton* sumbit = new QPushButton("Conferma");
+    QPushButton* sumbit = new QPushButton("Submit");
     formLayout->addWidget(sumbit, Qt::AlignRight);
-
-    DropSiteWindow* window = new DropSiteWindow();
 
     formLayout->insertStretch(formLayout->count());
     addNewLayout->addLayout(formLayout);
-    addNewLayout->addWidget(window);
     addNewWidget->setLayout(addNewLayout);
 
     slidingStacked->addWidget(dashBoardWidget);
