@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QBoxLayout>
 #include <QtCharts>
+#include <QCalendarWidget>
 
 #include "slidingstackedwidget.h"
 
@@ -19,6 +20,7 @@ public:
     void createSlidingStackedWidget();
     void createLayout();
     void createConnections();
+    QHBoxLayout* layout() const;
 
     QVBoxLayout *sideBar;
     QPushButton *dashBoard;

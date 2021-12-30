@@ -1,5 +1,6 @@
 #include "stackedwidgetslider.h"
 #include "spoiler.h"
+#include "dropsitewindow.h"
 
 /* The Constructor calls the subfunctions for creation of the sample application */
 StackedWidgetSlider::StackedWidgetSlider(QWidget *parent)
@@ -24,7 +25,7 @@ void StackedWidgetSlider::createGuiControlComponents() {
     addNew = new QPushButton(tr("Add New"));
     sideBar->addWidget(dashBoard);
     sideBar->addWidget(addNew);
-    sideBar->insertStretch(1);
+    sideBar->insertStretch(2);
     sideBar->addStrut(200);
 }
 
@@ -36,16 +37,15 @@ void StackedWidgetSlider::createSlidingStackedWidget() {
     QVBoxLayout* dashBoardLayout = new QVBoxLayout;
 
     QHBoxLayout* editButtonsLayout = new QHBoxLayout;
-    editButtonsLayout->addWidget(new QPushButton("1"));
-    editButtonsLayout->addWidget(new QPushButton("2"));
+    editButtonsLayout->addWidget(new QPushButton("Modifica"));
 
+    editButtonsLayout->insertStretch(0);
     dashBoardLayout->addLayout(editButtonsLayout);
 
     QChartView *chartView;
     QHBoxLayout* chartLayout = new QHBoxLayout;
     for(int i = 0; i < 3; ++i) {
         QVBoxLayout* chartBoxLayout = new QVBoxLayout;
-
 
         QPieSeries *series = new QPieSeries();
         series->append("Jane", 1);
@@ -93,6 +93,7 @@ void StackedWidgetSlider::createSlidingStackedWidget() {
     dashBoardLayout->addLayout(chartLayout);
 
     QHBoxLayout* controllButtonsLayout = new QHBoxLayout;
+
     controllButtonsLayout->addWidget(new QPushButton("1"));
     controllButtonsLayout->addWidget(new QPushButton("2"));
 
@@ -102,10 +103,72 @@ void StackedWidgetSlider::createSlidingStackedWidget() {
 
 
 
+    QFrame* addNewWidget = new QFrame;
+    QVBoxLayout* addNewLayout = new QVBoxLayout;
+
+    QVBoxLayout* formLayout = new QVBoxLayout;
+    QLabel* title = new QLabel();
+    title->setText("Chart Parameters:\n");
+    formLayout->addWidget(title);
+
+    QLabel* dateLabel = new QLabel();
+    dateLabel->setText("Insert Date");
+    formLayout->addWidget(dateLabel);
+    QHBoxLayout* formRow1 = new QHBoxLayout;
+    QStringList monthValues = { "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre" };
+    QComboBox* months = new QComboBox();
+    months->addItems(monthValues);
+    QSpinBox* years = new QSpinBox();
+    years->setRange(1900, 2300);
+    years->setValue(2022);
+    formRow1->addWidget(months);
+    formRow1->addWidget(years);
+    formLayout->addLayout(formRow1);
+
+    QLabel* valuesLabel = new QLabel();
+    valuesLabel->setText("Insert Values");
+    formLayout->addWidget(valuesLabel);
+    QHBoxLayout* formRow2 = new QHBoxLayout;
+    QLabel* B2BLabel = new QLabel();
+    B2BLabel->setText("B2B: ");
+    QSpinBox* b2b = new QSpinBox();
+    b2b->setRange(0, 2147483647); // INT max value = +2147483647
+    formRow2->addWidget(B2BLabel);
+    formRow2->addWidget(b2b);
+    formLayout->addLayout(formRow2);
+
+    QHBoxLayout* formRow3 = new QHBoxLayout;
+    QLabel* B2CLabel = new QLabel();
+    B2CLabel->setText("B2C: ");
+    QSpinBox* b2c = new QSpinBox();
+    b2c->setRange(0, 2147483647); // INT max value = +2147483647
+    formRow3->addWidget(B2CLabel);
+    formRow3->addWidget(b2c);
+    formLayout->addLayout(formRow3);
+
+    QHBoxLayout* formRow4 = new QHBoxLayout;
+    QLabel* B2GLabel = new QLabel();
+    B2GLabel->setText("B2G: ");
+    QSpinBox* b2g = new QSpinBox();
+    b2b->setRange(0, 2147483647); // INT max value = +2147483647
+    formRow4->addWidget(B2GLabel);
+    formRow4->addWidget(b2g);
+    formLayout->addLayout(formRow4);
+
+    QPushButton* sumbit = new QPushButton("Conferma");
+    formLayout->addWidget(sumbit, Qt::AlignRight);
+
+    DropSiteWindow* window = new DropSiteWindow();
+
+    formLayout->insertStretch(formLayout->count());
+    addNewLayout->addLayout(formLayout);
+    addNewLayout->addWidget(window);
+    addNewWidget->setLayout(addNewLayout);
+
     slidingStacked->addWidget(dashBoardWidget);
-    slidingStacked->addWidget(new QPushButton());
+    slidingStacked->addWidget(addNewWidget);
     slidingStacked->setSpeed(animTime);
-    slidingStacked->setWrap(true);
+    slidingStacked->setWrap(false);
     slidingStacked->setVerticalMode(true);
 }
 
@@ -116,11 +179,12 @@ void StackedWidgetSlider::createLayout() {
     mainLayout->addWidget(slidingStacked);
 }
 
-
-
-
 void StackedWidgetSlider::createConnections() {
     QObject::connect(dashBoard,SIGNAL(pressed()),slidingStacked,SLOT(slideInPrev()));
     QObject::connect(addNew,SIGNAL(pressed()),slidingStacked,SLOT(slideInNext()));
+}
+
+QHBoxLayout* StackedWidgetSlider::layout() const {
+    return mainLayout;
 }
 
