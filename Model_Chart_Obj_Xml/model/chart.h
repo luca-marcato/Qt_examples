@@ -22,7 +22,7 @@ protected:
     virtual void addSeries() const = 0;
     virtual void customize() const = 0;
 public:
-    virtual ~Chart();
+    virtual ~Chart() =default;
     void customized(bool =true);
     bool isCustomized() const;
     virtual QChartView* show() const;

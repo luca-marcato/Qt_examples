@@ -32,7 +32,6 @@ public:
         const std::string& ="",
         int =0, int =0, int =0, int =0);
 
-
     std::string getDate() const;
     std::string getMonth() const;
     std::string getYear() const;

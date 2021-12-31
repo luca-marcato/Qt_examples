@@ -35,7 +35,8 @@ SOURCES += \
         barchart.cpp \
         piechart.cpp \
         stacked_horizontal_barchart.cpp \
-    model.cpp
+    modello.cpp \
+    controller.cpp
 
 
 HEADERS += \
@@ -47,7 +48,8 @@ HEADERS += \
         barchart.h \
         piechart.h \
         stacked_horizontal_barchart.h \
-    model.h
+    modello.h \
+    controller.h
 
 FORMS += \
         mainwindow.ui
