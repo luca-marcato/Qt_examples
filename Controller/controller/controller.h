@@ -2,14 +2,19 @@
 #define CONTROLLER_H
 
 #include "modello.h"
-#include "viewer.h"
+
+class Viewer;
 
 class Controller
 {
 private:
-
+    Modello* model;
+    Viewer* view;
 public:
-    Controller();
+    Controller(Viewer*);
+    ~Controller();
+
+    std::list<QChart*> onGetCharts(const QString&) const;
 };
 
 #endif // CONTROLLER_H

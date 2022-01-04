@@ -13,8 +13,9 @@ protected:
     virtual void addSeries() const;
     void customize() const override;
 public:
-    PieChart(std::shared_ptr<Obj> =nullptr, const std::string& ="");
-    QChartView* show() const override;
+    PieChart(std::shared_ptr<Obj> =nullptr, const std::string& ="", bool =false);
+    virtual QPieSeries* getSeries() const;
+    QChart* show() const override;
 };
 
 #endif // PIECHART_H

@@ -1,6 +1,6 @@
 #include "barchart.h"
 
-BarChart::BarChart(std::shared_ptr<Obj> obj, const std::string& title) : Chart(obj, title),
+BarChart::BarChart(std::shared_ptr<Obj> obj, const std::string& title, bool custom) : Chart(obj, title, custom),
                                series(new QBarSeries()),
                                axisX(new QBarCategoryAxis()),
                                axisY(new QValueAxis()) {}
@@ -19,16 +19,10 @@ void BarChart::addSeries() const {
     series->append(set2);
 }
 
-void BarChart::addCategories() const {
-    QStringList categories;
-    categories << QString::fromStdString(obj->getMonth());
-    axisX->append(categories);
-
-    series->attachAxis(axisX);
-}
+void BarChart::addCategories() const {}
 
 void BarChart::setRange() const {
-    axisY->setRange(0, obj->getMaxValue());
+    axisY->setRange(0, 100);
 
     series->attachAxis(axisY);
 }
@@ -82,7 +76,11 @@ void BarChart::customize() const {
     axisY->setShadesVisible(true);
 }
 
-QChartView* BarChart::show() const {
+QBarSeries* BarChart::getSeries() const {
+    return series;
+}
+
+QChart* BarChart::show() const {
     addSeries();
     addCategories();
     setRange();

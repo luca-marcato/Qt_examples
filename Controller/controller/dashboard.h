@@ -19,6 +19,9 @@ private:
     QHBoxLayout* controllButtonsLayout;
     QDateTimeEdit* calendar;
     QPushButton* searchDate;
+    std::list<QChartView*> chartViews;
+
+    static QStringList monthValues;
 
     void CreateChartsView();
     void CreateControlGuiComponent();
@@ -29,6 +32,8 @@ public:
     ~Dashboard();
 
     QVBoxLayout* Layout() const;
+    QString getCalendarDate() const;
+    void setChartContent(std::list<QChart*>);
 };
 
 #endif // DASHBOARD_H

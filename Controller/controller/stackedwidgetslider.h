@@ -23,10 +23,13 @@ private:
     void createLayout();
     void createConnections();
 public:
-    StackedWidgetSlider(int =1000, QWidget *parent = 0);
+    StackedWidgetSlider(QWidget *parent = nullptr, int =1000);
     ~StackedWidgetSlider();
 
     QHBoxLayout* Layout() const;
+    void setChartView(std::list<QChart*>);
+public slots:
+    QString getChartDate() const;
 };
 
 #endif // STACKEDWIDGETSLIDER_H

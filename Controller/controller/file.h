@@ -15,7 +15,8 @@ public:
     virtual ~File() =default;
     virtual Obj* FromFileToObj() const = 0;
     virtual void FromObjToFile(Obj*) = 0;
-    static bool SearchFile(const QString&);
+
+    static bool Exist(const QString&);
 };
 
 #endif // FILE_H

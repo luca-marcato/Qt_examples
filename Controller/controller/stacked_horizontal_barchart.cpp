@@ -1,7 +1,7 @@
 #include "stacked_horizontal_barchart.h"
 
-StackedHorizontalBarChart::StackedHorizontalBarChart(std::shared_ptr<Obj> obj, const std::string& title) :
-                                                   Chart(obj, title),
+StackedHorizontalBarChart::StackedHorizontalBarChart(std::shared_ptr<Obj> obj, const std::string& title, bool custom) :
+                                                   Chart(obj, title, custom),
                                                    series(new QHorizontalStackedBarSeries()),
                                                    axisY(new QBarCategoryAxis()),
                                                    axisX(new QValueAxis()){}
@@ -69,20 +69,19 @@ void StackedHorizontalBarChart::customize() const {
     axisY->setShadesVisible(true);
 }
 
-void StackedHorizontalBarChart::addCategories() const {
-    QStringList categories;
-    categories << QString::fromStdString(obj->getMonth());
-
-    axisY->append(categories);
-}
+void StackedHorizontalBarChart::addCategories() const {}
 
 void StackedHorizontalBarChart::setRange() const {
-    axisX->setRange(0, obj->getTotalValue());
+    axisX->setRange(0, 100);
 
     series->attachAxis(axisX);
 }
 
-QChartView* StackedHorizontalBarChart::show() const {
+QHorizontalStackedBarSeries* StackedHorizontalBarChart::getSeries() const {
+    return series;
+}
+
+QChart* StackedHorizontalBarChart::show() const {
     addSeries();
     addCategories();
     setRange();

@@ -1,10 +1,10 @@
 #include "stackedwidgetslider.h"
 
-StackedWidgetSlider::StackedWidgetSlider(int animTime, QWidget *parent)
+StackedWidgetSlider::StackedWidgetSlider(QWidget *parent, int time)
     : QWidget(parent), sideBar(new QVBoxLayout()), mainLayout(new QHBoxLayout()),
       dashBoardButton(new QPushButton(tr("DashBoard"))), addNewButton(new QPushButton(tr("Add New"))),
-      slidingStacked(new SlidingStackedWidget()), dashBoardWidget(new Dashboard(slidingStacked)),
-      addNewWidget(new AddNew()), animTime(animTime)
+      slidingStacked(new SlidingStackedWidget()), dashBoardWidget(new Dashboard(slidingStacked, this)),
+      addNewWidget(new AddNew()), animTime(time)
 {
     createGuiControlComponents();
     createSlidingStackedWidget();
@@ -12,7 +12,11 @@ StackedWidgetSlider::StackedWidgetSlider(int animTime, QWidget *parent)
     createConnections();
 }
 
-StackedWidgetSlider::~StackedWidgetSlider() {}
+StackedWidgetSlider::~StackedWidgetSlider() {
+    delete slidingStacked;
+    delete dashBoardWidget;
+    delete addNewWidget;
+}
 
 void StackedWidgetSlider::createGuiControlComponents() {
     sideBar->addWidget(dashBoardButton);
@@ -45,5 +49,13 @@ void StackedWidgetSlider::createConnections() {
 
 QHBoxLayout* StackedWidgetSlider::Layout() const {
     return mainLayout;
+}
+
+QString StackedWidgetSlider::getChartDate() const {
+    return dashBoardWidget->getCalendarDate();
+}
+
+void StackedWidgetSlider::setChartView(std::list<QChart*> list) {
+    dashBoardWidget->setChartContent(list);
 }
 

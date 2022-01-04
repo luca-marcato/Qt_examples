@@ -20,8 +20,9 @@ protected:
     void addCategories() const;
     void setRange() const;
 public:
-    BarChart(std::shared_ptr<Obj> =nullptr, const std::string& ="");
-    QChartView* show() const override;
+    BarChart(std::shared_ptr<Obj> =nullptr, const std::string& ="", bool =false);
+    virtual QBarSeries* getSeries() const;
+    QChart* show() const override;
 
 };
 

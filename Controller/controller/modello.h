@@ -9,16 +9,12 @@
 
 class Modello
 {
-private:
-File* file;
-Obj* obj;
-std::list<Chart*> charts;
 public:
     Modello();
     //get Charts by date
-    std::list<Chart*> getChartsByDate(const std::string&, const std::string&);
+    std::list<Chart*> getChartsByDate(const QString&) const;
     //add new & update
-    std::list<Chart*> submitChart(const std::string&, const std::string&, int, int, int, int);
+    std::list<Chart*> submitChart(const std::string&, const std::string&, int, int, int, int) const;
 };
 
 #endif // MODEL_H

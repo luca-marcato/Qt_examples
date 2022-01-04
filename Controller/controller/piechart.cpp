@@ -1,6 +1,6 @@
 #include "piechart.h"
 
-PieChart::PieChart(std::shared_ptr<Obj> obj, const std::string& title) : Chart(obj, title), series(new QPieSeries()) {}
+PieChart::PieChart(std::shared_ptr<Obj> obj, const std::string& title, bool custom) : Chart(obj, title, custom), series(new QPieSeries()) {}
 
 void PieChart::addSeries() const {
     series->append("B2B", obj->getB2BVal())->setLabelVisible();
@@ -34,7 +34,11 @@ void PieChart::customize() const {
     chart->setPlotAreaBackgroundVisible(true);
 }
 
-QChartView* PieChart::show() const {
+QPieSeries* PieChart:: getSeries() const {
+    return series;
+}
+
+QChart* PieChart::show() const {
     addSeries();
 
     if(isCustomized()) customize();

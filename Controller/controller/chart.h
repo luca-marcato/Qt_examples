@@ -18,14 +18,14 @@ private:
 protected:
     QChart *chart;
     std::shared_ptr<Obj> obj;
-    Chart(std::shared_ptr<Obj>, const std::string&);
+    Chart(std::shared_ptr<Obj>, const std::string&, bool);
     virtual void addSeries() const = 0;
     virtual void customize() const = 0;
 public:
     virtual ~Chart() =default;
     void customized(bool =true);
     bool isCustomized() const;
-    virtual QChartView* show() const;
+    virtual QChart* show() const;
 
     //debug
     int getPtr_Count() const;
