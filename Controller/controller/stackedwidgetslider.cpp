@@ -4,7 +4,7 @@ StackedWidgetSlider::StackedWidgetSlider(QWidget *parent, int time)
     : QWidget(parent), sideBar(new QVBoxLayout()), mainLayout(new QHBoxLayout()),
       dashBoardButton(new QPushButton(tr("DashBoard"))), addNewButton(new QPushButton(tr("Add New"))),
       slidingStacked(new SlidingStackedWidget()), dashBoardWidget(new Dashboard(slidingStacked, this)),
-      addNewWidget(new AddNew()), animTime(time)
+      addNewWidget(new AddNew(this)), animTime(time)
 {
     createGuiControlComponents();
     createSlidingStackedWidget();
@@ -55,7 +55,14 @@ QString StackedWidgetSlider::getChartDate() const {
     return dashBoardWidget->getCalendarDate();
 }
 
+std::vector<QString> StackedWidgetSlider::getFormData() const {
+    return addNewWidget->getFormContent();
+}
+
 void StackedWidgetSlider::setChartView(std::list<QChart*> list) {
     dashBoardWidget->setChartContent(list);
 }
 
+void StackedWidgetSlider::setChartInfo(std::vector<QString> vector) {
+    dashBoardWidget->setChartInfoContent(vector);
+}

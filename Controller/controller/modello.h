@@ -13,8 +13,10 @@ public:
     Modello();
     //get Charts by date
     std::list<Chart*> getChartsByDate(const QString&) const;
+    //get Charts Info by date
+    std::vector<QString> getChartsInfoByDate(const QString&) const;
     //add new & update
-    std::list<Chart*> submitChart(const std::string&, const std::string&, int, int, int, int) const;
+    void submitChart(const std::string&, const std::string&, int, int, int) const;
 };
 
 #endif // MODEL_H

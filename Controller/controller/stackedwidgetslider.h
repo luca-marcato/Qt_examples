@@ -28,8 +28,10 @@ public:
 
     QHBoxLayout* Layout() const;
     void setChartView(std::list<QChart*>);
+    void setChartInfo(std::vector<QString>);
 public slots:
     QString getChartDate() const;
+    std::vector<QString> getFormData() const;
 };
 
 #endif // STACKEDWIDGETSLIDER_H

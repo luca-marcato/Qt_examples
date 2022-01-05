@@ -7,6 +7,7 @@
 #include <QComboBox>
 #include <QSpinBox>
 #include <QLabel>
+#include <QDebug>
 
 class AddNew :  public QWidget
 {
@@ -14,11 +15,12 @@ class AddNew :  public QWidget
 private:
     QVBoxLayout* layout;
     QVBoxLayout* formLayout;
-    QHBoxLayout* formRow1;
-    QHBoxLayout* formRow2;
-    QHBoxLayout* formRow3;
-    QHBoxLayout* formRow4;
-    QPushButton* sumbit;
+    QComboBox* month;
+    QSpinBox* year;
+    QSpinBox* b2b;
+    QSpinBox* b2c;
+    QSpinBox* b2g;
+    QPushButton* submit;
 
     void CreateForm();
     void CreateLayout();
@@ -31,6 +33,7 @@ public:
     ~AddNew();
 
     QVBoxLayout* Layout() const;
+    std::vector<QString> getFormContent() const;
 };
 
 #endif // ADDNEW_H

@@ -10,7 +10,7 @@ Obj::Obj(const std::string& year, const std::string& month, int b2b, int b2c, in
     date(year, month), component(b2b, b2c, b2g, componentId) {}
 
 std::string Obj::Date::getDate() const {
-    return month + "/" + year;
+    return year + " " + month;
 }
 
 std::string Obj::getDate() const{
@@ -37,11 +37,23 @@ int Obj::getB2GVal() const {
     return component.B2G;
 }
 
-void Obj::setYear(std::string year) {
+int  Obj::getB2BPercent() const{
+    return (component.B2B * 100) / getTotalValue();
+}
+
+int  Obj::getB2CPercent() const{
+    return (component.B2C * 100) / getTotalValue();
+}
+
+int  Obj::getB2GPercent() const{
+    return (component.B2G * 100) / getTotalValue();
+}
+
+void Obj::setYear(const std::string& year) {
     date.year = year;
 }
 
-void Obj::setMonth(std::string month) {
+void Obj::setMonth(const std::string& month) {
     date.month = month;
 }
 
@@ -66,6 +78,10 @@ int Obj::getMaxValue() const {
 
 int Obj::getTotalValue() const {
     return component.B2B + component.B2C + component.B2G;
+}
+
+int Obj::getTotalPercent() const {
+    return getB2BPercent() + getB2CPercent() + getB2GPercent();
 }
 
 std::ostream& operator <<(std::ostream& os, const Obj& obj) {

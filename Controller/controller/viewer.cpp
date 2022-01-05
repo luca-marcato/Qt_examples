@@ -13,6 +13,13 @@ Viewer::~Viewer() {
 
 void Viewer::showCharts() {
     QString date = window->getChartDate();
-    std::list<QChart*> charts = controller->onGetCharts(date);
+    std::list<QChart*> charts = controller->getChartsView(date);
+    std::vector<QString> infos = controller->getChartsInfo(date);
+    window->setChartInfo(infos);
     window->setChartView(charts);
+}
+
+void Viewer::addNewChart() {
+    std::vector<QString> data = window->getFormData();
+    controller->addNewChart(data);
 }

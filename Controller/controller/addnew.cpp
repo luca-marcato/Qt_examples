@@ -1,90 +1,103 @@
 #include "addnew.h"
 
 QStringList AddNew::monthValues = {
-        "Gennaio",
-        "Febbraio",
-        "Marzo",
-        "Aprile",
-        "Maggio",
-        "Giugno",
-        "Luglio",
-        "Agosto",
-        "Settembre",
-        "Ottobre",
-        "Novembre",
-        "Dicembre"
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "Dicember"
     };
 
 QString AddNew::currentYear = "2020";
 
 AddNew::AddNew(QWidget* parent) : QWidget(parent),
     layout(new QVBoxLayout()), formLayout(new QVBoxLayout()),
-     formRow1(new QHBoxLayout()), formRow2(new QHBoxLayout()),
-     formRow3(new QHBoxLayout()), formRow4(new QHBoxLayout()),
-     sumbit(new QPushButton(tr("Submit")))
+     month(new QComboBox()), year(new QSpinBox()),
+     b2b(new QSpinBox()), b2c(new QSpinBox()),
+     b2g(new QSpinBox()), submit(new QPushButton(tr("Submit")))
 {
     CreateForm();
     CreateLayout();
+    CreateConnections();
 }
 
 AddNew::~AddNew() {}
 
 void AddNew::CreateForm() {
-    QComboBox* months = new QComboBox();
-    months->addItems(monthValues);
-    QSpinBox* years = new QSpinBox();
-    years->setRange(currentYear.toInt() - 100, currentYear.toInt() + 100);
-    years->setValue(currentYear.toInt());
-    formRow1->addWidget(months);
-    formRow1->addWidget(years);
+    QLabel* title = new QLabel();
+    title->setText("Chart Parameters:\n");
 
+    QLabel* dateLabel = new QLabel();
+    dateLabel->setText("Insert Date");
+    QHBoxLayout* formRow1 = new QHBoxLayout();
+    month->addItems(monthValues);
+    year->setRange(currentYear.toInt() - 100, currentYear.toInt() + 100);
+    year->setValue(currentYear.toInt());
+    formRow1->addWidget(month);
+    formRow1->addWidget(year);
+
+    QLabel* valuesLabel = new QLabel();
+    valuesLabel->setText("Insert Values");
+    QHBoxLayout* formRow2 = new QHBoxLayout();
     QLabel* B2BLabel = new QLabel();
     B2BLabel->setText("B2B: ");
-    QSpinBox* b2b = new QSpinBox();
     b2b->setRange(0, INT_MAX);
     formRow2->addWidget(B2BLabel);
     formRow2->addWidget(b2b);
 
+    QHBoxLayout* formRow3 = new QHBoxLayout();
     QLabel* B2CLabel = new QLabel();
     B2CLabel->setText("B2C: ");
-    QSpinBox* b2c = new QSpinBox();
     b2c->setRange(0, INT_MAX);
     formRow3->addWidget(B2CLabel);
     formRow3->addWidget(b2c);
 
+    QHBoxLayout* formRow4 = new QHBoxLayout();
     QLabel* B2GLabel = new QLabel();
     B2GLabel->setText("B2G: ");
-    QSpinBox* b2g = new QSpinBox();
     b2g->setRange(0, INT_MAX);
     formRow4->addWidget(B2GLabel);
     formRow4->addWidget(b2g);
-}
 
-void AddNew::CreateLayout() {
-    QLabel* title = new QLabel();
-    title->setText("Chart Parameters:\n");
     formLayout->addWidget(title);
-
-    QLabel* dateLabel = new QLabel();
-    dateLabel->setText("Insert Date");
     formLayout->addWidget(dateLabel);
     formLayout->addLayout(formRow1);
-
-    QLabel* valuesLabel = new QLabel();
-    valuesLabel->setText("Insert Values");
     formLayout->addWidget(valuesLabel);
     formLayout->addLayout(formRow2);
     formLayout->addLayout(formRow3);
     formLayout->addLayout(formRow4);
-    formLayout->addWidget(sumbit, Qt::AlignRight);
+}
+
+void AddNew::CreateLayout() {
+    formLayout->addWidget(submit, Qt::AlignRight);
     formLayout->insertStretch(formLayout->count());
     layout->addLayout(formLayout);
 }
 
 void AddNew::CreateConnections() {
-
+    connect(submit, SIGNAL(pressed()), this->parentWidget()->parentWidget(), SLOT(addNewChart()));
 }
 
 QVBoxLayout* AddNew::Layout() const {
     return layout;
 }
+
+std::vector<QString> AddNew::getFormContent() const {
+    qDebug(QString("AA").toLatin1());
+    std::vector<QString> form;
+    form.push_back(QString::number(year->value()));
+    form.push_back(month->currentText());
+    form.push_back(QString::number(b2b->value()));
+    form.push_back(QString::number(b2c->value()));
+    form.push_back(QString::number(b2g->value()));
+    return form;
+}
+
+

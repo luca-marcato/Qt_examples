@@ -4,6 +4,7 @@
 #include <QBoxLayout>
 #include <QPushButton>
 #include <QtCharts>
+#include <QDebug>
 
 #include "slidingwindow.h"
 #include "slidingstackedwidget.h"
@@ -20,8 +21,9 @@ private:
     QDateTimeEdit* calendar;
     QPushButton* searchDate;
     std::list<QChartView*> chartViews;
+    std::vector<SlidingWindow*> chartInfo;
 
-    static QStringList monthValues;
+    static const QStringList monthValues;
 
     void CreateChartsView();
     void CreateControlGuiComponent();
@@ -34,6 +36,7 @@ public:
     QVBoxLayout* Layout() const;
     QString getCalendarDate() const;
     void setChartContent(std::list<QChart*>);
+    void setChartInfoContent(std::vector<QString>);
 };
 
 #endif // DASHBOARD_H

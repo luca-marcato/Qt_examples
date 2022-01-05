@@ -38,10 +38,13 @@ public:
     int  getB2BVal() const;
     int  getB2CVal() const;
     int  getB2GVal() const;
+    int  getB2BPercent() const;
+    int  getB2CPercent() const;
+    int  getB2GPercent() const;
     //int  getComponentId() const;
 
-    void setYear(std::string);
-    void setMonth(std::string);
+    void setYear(const std::string&);
+    void setMonth(const std::string&);
     void setB2BVal(int);
     void setB2CVal(int);
     void setB2GVal(int);
@@ -49,6 +52,7 @@ public:
 
     int getMaxValue() const;
     int getTotalValue() const;
+    int getTotalPercent() const;
 };
 
 std::ostream& operator <<(std::ostream&, const Obj&);

@@ -14,7 +14,9 @@ public:
     Controller(Viewer*);
     ~Controller();
 
-    std::list<QChart*> onGetCharts(const QString&) const;
+    std::list<QChart*> getChartsView(const QString&) const;
+    std::vector<QString> getChartsInfo(const QString&) const;
+    void addNewChart(std::vector<QString>) const;
 };
 
 #endif // CONTROLLER_H
