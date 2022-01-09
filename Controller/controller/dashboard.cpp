@@ -17,9 +17,10 @@ const QStringList Dashboard::monthValues = {
 
 Dashboard::Dashboard(SlidingStackedWidget* slidingStacked, QWidget* parent) : QWidget(parent),
         slidingStacked(slidingStacked), layout(new QVBoxLayout()), chartLayout(new QHBoxLayout()),
-        modifyButton(new QPushButton(tr("Modify"))), controllButtonsLayout(new QHBoxLayout()),
-        calendar(new QDateTimeEdit()), searchDate(new QPushButton(tr("Get Chart"))),
-        chartViews(std::list<QChartView*>(3)), chartInfo(std::vector<SlidingWindow*>(3))
+        modifyButton(new QPushButton(tr("Modify"))), dialog(new ModifyDialog(this)),
+        controllButtonsLayout(new QHBoxLayout()), calendar(new QDateTimeEdit()),
+        searchDate(new QPushButton(tr("Get Chart"))), chartViews(std::list<QChartView*>(3)),
+        chartInfo(std::vector<SlidingWindow*>(3))
 {
     CreateChartsView();
     CreateControlGuiComponent();
@@ -40,6 +41,11 @@ void Dashboard::CreateChartsView() {
         chartBoxLayout->addWidget(*itChart);
 
         *itInfo = new SlidingWindow("Info:");
+        QVBoxLayout *infoLayout = new QVBoxLayout();
+        QLabel* infoValue = new QLabel();
+        infoValue->setText("No Data Avaiable");
+        infoLayout->addWidget(infoValue,  Qt::AlignHCenter);
+        (*itInfo)->setContentLayout(infoLayout);
         chartBoxLayout->addWidget(*itInfo);
         chartBoxLayout->addStrut(350);
         chartLayout->addLayout(chartBoxLayout);
@@ -50,6 +56,7 @@ void Dashboard::CreateChartsView() {
 void Dashboard::CreateControlGuiComponent() {
     calendar->setDisplayFormat("MM-yyyy");
     calendar->setCurrentSection(QDateTimeEdit::MonthSection);
+    calendar->setDate(QDate::currentDate());
     controllButtonsLayout->addWidget(calendar);
     controllButtonsLayout->addWidget(searchDate);
     controllButtonsLayout->addStrut(200);
@@ -62,7 +69,7 @@ void Dashboard::CreateLayout() {
 }
 
 void Dashboard::CreateConnections() {
-    connect(modifyButton, SIGNAL(pressed()), slidingStacked, SLOT(slideInNext()));
+    connect(modifyButton, SIGNAL(pressed()), dialog, SLOT(open()));
     connect(searchDate, SIGNAL(pressed()), this->parentWidget()->parentWidget(), SLOT(showCharts()));
 }
 
@@ -151,24 +158,37 @@ void Dashboard::setChartInfoContent(std::vector<QString> content) {
         chartInfo.at(0)->setContentLayout(info1);
         chartInfo.at(1)->setContentLayout(info2);
         chartInfo.at(2)->setContentLayout(info3);
+
+        dialog->setDate(getCalendarDate());
+        dialog->setValues(content.at(0), content.at(1), content.at(2));
     } else {
         QVBoxLayout *noChart1 = new QVBoxLayout();
         QVBoxLayout *noChart2 = new QVBoxLayout();
         QVBoxLayout *noChart3 = new QVBoxLayout();
 
         QLabel* label1 = new QLabel();
-        label1->setText("No Data Aviable");
+        label1->setText("No Data Avaiable");
         noChart1->addWidget(label1, Qt::AlignHCenter);
         QLabel* label2 = new QLabel();
-        label2->setText("No Data Aviable");
+        label2->setText("No Data Avaiable");
         noChart2->addWidget(label2, Qt::AlignHCenter);
         QLabel* label3 = new QLabel();
-        label3->setText("No Data Aviable");
+        label3->setText("No Data Avaiable");
         noChart3->addWidget(label3, Qt::AlignHCenter);
 
         chartInfo.at(0)->setContentLayout(noChart1);
         chartInfo.at(1)->setContentLayout(noChart2);
         chartInfo.at(2)->setContentLayout(noChart3);
-    }
 
+        dialog->setDate("No Data Avaiable");
+        dialog->setValues("0", "0", "0");
+    }
+}
+
+std::vector<QString> Dashboard::getDateAndFormContent() const {
+    std::vector<QString> form;
+    QDate date = calendar->date();
+    form.push_back(QString::number(date.year()));
+    form.push_back(monthValues.at(date.month()-1));
+    return dialog->getFormContent(form);
 }

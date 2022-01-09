@@ -26,8 +26,8 @@ private:
     void CreateLayout();
     void CreateConnections();
 
-    static QStringList monthValues;
-    static QString currentYear;
+    const static QStringList monthValues;
+    const static QString currentYear;
 public:
     AddNew(QWidget *parent = 0);
     ~AddNew();

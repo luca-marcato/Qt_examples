@@ -16,7 +16,7 @@ public:
     //get Charts Info by date
     std::vector<QString> getChartsInfoByDate(const QString&) const;
     //add new & update
-    void submitChart(const std::string&, const std::string&, int, int, int) const;
+    void submitChart(const std::string&, const std::string&, int, int, int, bool) const;
 };
 
 #endif // MODEL_H

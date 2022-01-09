@@ -8,6 +8,7 @@
 
 #include "slidingwindow.h"
 #include "slidingstackedwidget.h"
+#include "modifydialog.h"
 
 class Dashboard : public QWidget
 {
@@ -17,6 +18,7 @@ private:
     QVBoxLayout* layout;
     QHBoxLayout* chartLayout;
     QPushButton* modifyButton;
+    ModifyDialog* dialog;
     QHBoxLayout* controllButtonsLayout;
     QDateTimeEdit* calendar;
     QPushButton* searchDate;
@@ -37,6 +39,7 @@ public:
     QString getCalendarDate() const;
     void setChartContent(std::list<QChart*>);
     void setChartInfoContent(std::vector<QString>);
+    std::vector<QString> getDateAndFormContent() const;
 };
 
 #endif // DASHBOARD_H

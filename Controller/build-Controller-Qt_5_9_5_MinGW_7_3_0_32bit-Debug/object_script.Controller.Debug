@@ -17,6 +17,7 @@ INPUT(
 ./debug/dashboard.o
 ./debug/slidingwindow.o
 ./debug/addnew.o
+./debug/modifydialog.o
 ./debug/moc_viewer.o
 ./debug/moc_slidingstackedwidget.o
 ./debug/moc_stackedwidgetslider.o

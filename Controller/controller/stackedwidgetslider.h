@@ -31,7 +31,8 @@ public:
     void setChartInfo(std::vector<QString>);
 public slots:
     QString getChartDate() const;
-    std::vector<QString> getFormData() const;
+    std::vector<QString> getAddNewFormData() const;
+    std::vector<QString> getUpdateFormData() const;
 };
 
 #endif // STACKEDWIDGETSLIDER_H

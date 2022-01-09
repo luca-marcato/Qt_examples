@@ -21,6 +21,7 @@ std::vector<QString> Controller::getChartsInfo(const QString& date) const {
     return model->getChartsInfoByDate(date);
 }
 
-void Controller::addNewChart(std::vector<QString> objData) const {
-    model->submitChart(objData.at(0).toStdString(), objData.at(1).toStdString(), objData.at(2).toInt(), objData.at(3).toInt(),objData.at(4).toInt());
+void Controller::insertNewChartData(std::vector<QString> objData, bool isNew) const {
+    model->submitChart(objData.at(0).toStdString(), objData.at(1).toStdString(), objData.at(2).toInt(), objData.at(3).toInt(),objData.at(4).toInt(), isNew);
 }
+

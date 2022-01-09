@@ -19,7 +19,13 @@ void Viewer::showCharts() {
     window->setChartView(charts);
 }
 
-void Viewer::addNewChart() {
-    std::vector<QString> data = window->getFormData();
-    controller->addNewChart(data);
+void Viewer::addNewChart() const {
+    std::vector<QString> data = window->getAddNewFormData();
+    controller->insertNewChartData(data, true);
+}
+
+void Viewer::updateChart() {
+    std::vector<QString> data = window->getUpdateFormData();
+    controller->insertNewChartData(data, false);
+    showCharts();
 }

@@ -1,6 +1,6 @@
 #include "addnew.h"
 
-QStringList AddNew::monthValues = {
+const QStringList AddNew::monthValues = {
     "January",
     "February",
     "March",
@@ -15,7 +15,7 @@ QStringList AddNew::monthValues = {
     "Dicember"
     };
 
-QString AddNew::currentYear = "2020";
+const QString AddNew::currentYear = "2022";
 
 AddNew::AddNew(QWidget* parent) : QWidget(parent),
     layout(new QVBoxLayout()), formLayout(new QVBoxLayout()),
@@ -90,7 +90,6 @@ QVBoxLayout* AddNew::Layout() const {
 }
 
 std::vector<QString> AddNew::getFormContent() const {
-    qDebug(QString("AA").toLatin1());
     std::vector<QString> form;
     form.push_back(QString::number(year->value()));
     form.push_back(month->currentText());

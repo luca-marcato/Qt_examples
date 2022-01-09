@@ -43,7 +43,8 @@ SOURCES += \
         controller.cpp \
         dashboard.cpp \
         slidingwindow.cpp \
-    addnew.cpp
+    addnew.cpp \
+    modifydialog.cpp
 
 HEADERS += \
         viewer.h \
@@ -62,4 +63,5 @@ HEADERS += \
         controller.h \
         dashboard.h \
         slidingwindow.h \
-    addnew.h
+    addnew.h \
+    modifydialog.h

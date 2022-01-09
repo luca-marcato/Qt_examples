@@ -19,7 +19,8 @@ public:
 
 public slots:
     void showCharts();
-    void addNewChart();
+    void addNewChart() const;
+    void updateChart();
 };
 
 #endif // VIEWER_H

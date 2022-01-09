@@ -17,6 +17,7 @@ INPUT(
 ./release/dashboard.o
 ./release/slidingwindow.o
 ./release/addnew.o
+./release/modifydialog.o
 ./release/moc_viewer.o
 ./release/moc_slidingstackedwidget.o
 ./release/moc_stackedwidgetslider.o

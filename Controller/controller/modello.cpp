@@ -35,9 +35,14 @@ std::vector<QString> Modello::getChartsInfoByDate(const QString& date) const {
     return infos;
 }
 
-void Modello::submitChart(const std::string& year, const std::string& month, int b2b, int b2c, int b2g) const {
-    Obj* obj = new Obj(year, month, b2b, b2c, b2g);
+void Modello::submitChart(const std::string& year, const std::string& month, int b2b, int b2c, int b2g, bool isNew) const {
     QString fileName = QString::fromStdString(year) + QString::fromStdString(month) + ".xml";
-    File* file = new XmlFile(fileName);
-    file->FromObjToFile(obj);
+    Obj* obj = new Obj(year, month, b2b, b2c, b2g);
+    if(isNew && !File::Exist(fileName)) {
+        File* file = new XmlFile(fileName);
+        file->FromObjToFile(obj);
+    } else if(!isNew && File::Exist(fileName)) {
+        File* file = new XmlFile(fileName);
+        file->FromObjToFile(obj);
+    }
 }

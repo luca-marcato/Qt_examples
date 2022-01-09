@@ -16,7 +16,7 @@ public:
 
     std::list<QChart*> getChartsView(const QString&) const;
     std::vector<QString> getChartsInfo(const QString&) const;
-    void addNewChart(std::vector<QString>) const;
+    void insertNewChartData(std::vector<QString>, bool) const;
 };
 
 #endif // CONTROLLER_H
