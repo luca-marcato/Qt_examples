@@ -15,13 +15,11 @@ const QStringList AddNew::monthValues = {
     "Dicember"
     };
 
-const QString AddNew::currentYear = "2022";
-
 AddNew::AddNew(QWidget* parent) : QWidget(parent),
-    layout(new QVBoxLayout()), formLayout(new QVBoxLayout()),
+     layout(new QVBoxLayout()), formLayout(new QVBoxLayout()),
      month(new QComboBox()), year(new QSpinBox()),
-     b2b(new QSpinBox()), b2c(new QSpinBox()),
-     b2g(new QSpinBox()), submit(new QPushButton(tr("Submit")))
+     b2b(new QSpinBox()), b2c(new QSpinBox()), b2g(new QSpinBox()),
+     submit(new QPushButton(tr("Submit"))), drop(new DropSiteWindow(this)), label(new QLabel())
 {
     CreateForm();
     CreateLayout();
@@ -38,8 +36,8 @@ void AddNew::CreateForm() {
     dateLabel->setText("Insert Date");
     QHBoxLayout* formRow1 = new QHBoxLayout();
     month->addItems(monthValues);
-    year->setRange(currentYear.toInt() - 100, currentYear.toInt() + 100);
-    year->setValue(currentYear.toInt());
+    year->setRange(QDate::currentDate().year() - 100, QDate::currentDate().year() + 100);
+    year->setValue(QDate::currentDate().year());
     formRow1->addWidget(month);
     formRow1->addWidget(year);
 
@@ -76,9 +74,11 @@ void AddNew::CreateForm() {
 }
 
 void AddNew::CreateLayout() {
-    formLayout->addWidget(submit, Qt::AlignRight);
+    formLayout->addWidget(submit);
+    formLayout->addWidget(label);
     formLayout->insertStretch(formLayout->count());
     layout->addLayout(formLayout);
+    layout->addWidget(drop);
 }
 
 void AddNew::CreateConnections() {
@@ -97,6 +97,14 @@ std::vector<QString> AddNew::getFormContent() const {
     form.push_back(QString::number(b2c->value()));
     form.push_back(QString::number(b2g->value()));
     return form;
+}
+
+const QString AddNew::getDropDownFilesPath() const {
+    return drop->getFilesPath();
+}
+
+void AddNew::setLabelMsg(const QString & text) {
+    label->setText(text);
 }
 
 

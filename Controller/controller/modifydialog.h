@@ -29,6 +29,7 @@ public:
     void setDate(const QString &);
     void setValues(const QString&, const QString&, const QString&);
     std::vector<QString> getFormContent(std::vector<QString>&) const;
+    void active(bool);
 };
 
 #endif // MODIFYDIALOG_H

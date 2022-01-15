@@ -7,21 +7,26 @@
 #include <QtCharts/QValueAxis>
 #include <QtCharts/QHorizontalStackedBarSeries>
 
-#include "chart.h"
+#include "mychart.h"
 
-class StackedHorizontalBarChart: public Chart
+class StackedHorizontalBarChart: public MyChart
 {
 private:
+
+    QBarSet *set0;
+    QBarSet *set1;
+    QBarSet *set2;
+protected:
     QHorizontalStackedBarSeries *series;
     QBarCategoryAxis *axisY;
     QValueAxis *axisX;
-protected:
     void addSeries() const override;
-    void customize() const override;
     void addCategories() const;
     void setRange() const;
 public:
-    StackedHorizontalBarChart(std::shared_ptr<Obj> =nullptr, const std::string& ="", bool =false);
+    StackedHorizontalBarChart(Obj* =nullptr, const std::string& ="", bool =false);
+    ~StackedHorizontalBarChart() override;
+    StackedHorizontalBarChart& operator =(const StackedHorizontalBarChart&);
     virtual QHorizontalStackedBarSeries* getSeries() const;
     QChart* show() const override;
 };

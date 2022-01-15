@@ -4,7 +4,6 @@ INPUT(
 ./debug/obj.o
 ./debug/file.o
 ./debug/xmlfile.o
-./debug/chart.o
 ./debug/barchart.o
 ./debug/piechart.o
 ./debug/stacked_horizontal_barchart.o
@@ -18,6 +17,8 @@ INPUT(
 ./debug/slidingwindow.o
 ./debug/addnew.o
 ./debug/modifydialog.o
+./debug/mychart.o
+./debug/areachart.o
 ./debug/moc_viewer.o
 ./debug/moc_slidingstackedwidget.o
 ./debug/moc_stackedwidgetslider.o

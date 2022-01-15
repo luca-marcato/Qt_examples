@@ -6,22 +6,27 @@
 #include <QtCharts/QBarCategoryAxis>
 #include <QtCharts/QValueAxis>
 
-#include "chart.h"
+#include "mychart.h"
 
-class BarChart : public Chart
+class BarChart : public MyChart
 {
 private:
+
+    QBarSet *set0;
+    QBarSet *set1;
+    QBarSet *set2;
+protected:
     QBarSeries *series;
     QBarCategoryAxis *axisX;
     QValueAxis *axisY;
-protected:
     void addSeries() const override;
-    void customize() const override;
     void addCategories() const;
     void setRange() const;
 public:
-    BarChart(std::shared_ptr<Obj> =nullptr, const std::string& ="", bool =false);
-    virtual QBarSeries* getSeries() const;
+    BarChart(Obj* =nullptr, const std::string& ="", bool =false);
+    ~BarChart() override;
+    BarChart& operator =(const BarChart&);
+    //QBarSeries* getSeries() const;
     QChart* show() const override;
 
 };

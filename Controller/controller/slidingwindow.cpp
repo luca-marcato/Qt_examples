@@ -47,7 +47,10 @@ void SlidingWindow::setContentLayout(QLayout* contentLayout) {
     delete contentArea->layout();
     contentArea->setLayout(contentLayout);
     const auto collapsedHeight = sizeHint().height() - contentArea->maximumHeight();
-    int contentHeight = contentLayout->sizeHint().height()+100;
+    int contentHeight = contentLayout->sizeHint().height();
+    if(contentHeight < 100) {
+        contentHeight = contentLayout->sizeHint().height()+100;
+    }
     for (int i = 0; i < toggleAnimation->animationCount() - 1; ++i) {
         QPropertyAnimation * spoilerAnimation = static_cast<QPropertyAnimation *>(toggleAnimation->animationAt(i));
         spoilerAnimation->setDuration(animationDuration);

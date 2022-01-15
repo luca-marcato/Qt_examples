@@ -70,3 +70,7 @@ std::vector<QString> ModifyDialog::getFormContent(std::vector<QString>& form) co
     form.push_back(QString::number(b2gWidget->value()));
     return form;
 }
+
+void ModifyDialog::active(bool value) {
+   submit->setVisible(value);
+}

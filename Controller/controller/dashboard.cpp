@@ -60,6 +60,8 @@ void Dashboard::CreateControlGuiComponent() {
     controllButtonsLayout->addWidget(calendar);
     controllButtonsLayout->addWidget(searchDate);
     controllButtonsLayout->addStrut(200);
+
+    dialog->active(false);
 }
 
 void Dashboard::CreateLayout() {
@@ -103,11 +105,11 @@ void Dashboard::setChartInfoContent(std::vector<QString> content) {
         QVBoxLayout *info3 = new QVBoxLayout();
 
         QLabel* title1 = new QLabel();
-        title1->setText("Chart: "+content.at(8));
+        title1->setText("Date: "+content.at(8));
         QLabel* title2 = new QLabel();
-        title2->setText("Chart: "+content.at(8));
+        title2->setText("Date: "+content.at(8));
         QLabel* title3 = new QLabel();
-        title3->setText("Chart: "+content.at(8));
+        title3->setText("Date: "+content.at(8));
 
         QLabel* b2b1 = new QLabel();
         b2b1->setText("B2B: "+content.at(0));
@@ -155,12 +157,17 @@ void Dashboard::setChartInfoContent(std::vector<QString> content) {
         info3->addWidget(b2g2);
         info3->addWidget(totalValue3);
 
+        QString month = QString::number(monthValues.indexOf(content.at(9))+1);
+        if(month.toInt() < 10) month.insert(0,"0");
+        calendar->setDate(QDate::fromString(month+"-"+content.at(10), "MM-yyyy"));
+
         chartInfo.at(0)->setContentLayout(info1);
         chartInfo.at(1)->setContentLayout(info2);
         chartInfo.at(2)->setContentLayout(info3);
 
         dialog->setDate(getCalendarDate());
         dialog->setValues(content.at(0), content.at(1), content.at(2));
+        dialog->active(true);
     } else {
         QVBoxLayout *noChart1 = new QVBoxLayout();
         QVBoxLayout *noChart2 = new QVBoxLayout();
@@ -182,6 +189,7 @@ void Dashboard::setChartInfoContent(std::vector<QString> content) {
 
         dialog->setDate("No Data Avaiable");
         dialog->setValues("0", "0", "0");
+        dialog->active(false);
     }
 }
 

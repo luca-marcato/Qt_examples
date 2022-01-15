@@ -1,93 +1,95 @@
 #include "obj.h"
 
-Obj::Date::Date(const std::string& year, const std::string& month) :
-    year(year), month(month) {}
+Obj::Date::Date(const std::string& year, const std::string& month) : _year(year), _month(month) {}
 
-Obj::Component::Component(int b2b, int b2c, int b2g, int id) :
-    B2B(b2b), B2C(b2c), B2G(b2g), id(id) {}
+Obj::Component::Component(int b2b, int b2c, int b2g) :
+    _b2b(b2b), _b2c(b2c), _b2g(b2g) {}
 
-Obj::Obj(const std::string& year, const std::string& month, int b2b, int b2c, int b2g, int componentId) :
-    date(year, month), component(b2b, b2c, b2g, componentId) {}
+Obj::Obj(const std::string& year, const std::string& month, int b2b, int b2c, int b2g) :
+    date(year, month), component(b2b, b2c, b2g) {}
 
-std::string Obj::Date::getDate() const {
-    return year + " " + month;
+std::string Obj::Date::get() const {
+    return _year + " " + _month;
+}
+
+std::string Obj::Date::month() const {
+    return _month;
+}
+
+std::string Obj::Date::year() const {
+    return _year;
 }
 
 std::string Obj::getDate() const{
-    return date.getDate();
+    return date.get();
+}
+
+int Obj::Component::getB2B() const {
+    return _b2b;
+}
+
+int Obj::Component::getB2C() const {
+    return _b2c;
+}
+
+int Obj::Component::getB2G() const {
+    return _b2g;
 }
 
 std::string Obj::getMonth() const {
-    return date.month;
+    return date.month();
 }
 
 std::string Obj::getYear() const {
-    return date.year;
+    return date.year();
 }
 
-int Obj::getB2BVal() const {
-    return component.B2B;
+int Obj::getB2BValue() const {
+    return component.getB2B();
 }
 
-int Obj::getB2CVal() const {
-    return component.B2C;
+int Obj::getB2CValue() const {
+    return component.getB2C();
 }
 
-int Obj::getB2GVal() const {
-    return component.B2G;
+int Obj::getB2GValue() const {
+    return component.getB2G();
 }
 
-int  Obj::getB2BPercent() const{
-    return (component.B2B * 100) / getTotalValue();
+int  Obj::getB2BPercentage() const{
+    return (component.getB2B() * 100) / getTotalValue();
 }
 
-int  Obj::getB2CPercent() const{
-    return (component.B2C * 100) / getTotalValue();
+int  Obj::getB2CPercentage() const{
+    return (component.getB2C() * 100) / getTotalValue();
 }
 
-int  Obj::getB2GPercent() const{
-    return (component.B2G * 100) / getTotalValue();
-}
-
-void Obj::setYear(const std::string& year) {
-    date.year = year;
-}
-
-void Obj::setMonth(const std::string& month) {
-    date.month = month;
-}
-
-void Obj::setB2BVal(int b2b) {
-    component.B2B = b2b;
-}
-
-void Obj::setB2CVal(int b2c) {
-    component.B2C = b2c;
-}
-
-void Obj::setB2GVal(int b2g) {
-    component.B2G = b2g;
+int  Obj::getB2GPercentage() const{
+    return (component.getB2G() * 100) / getTotalValue();
 }
 
 int Obj::getMaxValue() const {
-    int max = component.B2B;
-    if(max < component.B2C) max = component.B2C;
-    if(max < component.B2G) max = component.B2G;
+    int max = component.getB2B();
+    if(max < component.getB2C()) max = component.getB2C();
+    if(max < component.getB2G()) max = component.getB2G();
     return max;
 }
 
+int Obj::getMinValue() const {
+    int min = component.getB2B();
+    if(min > component.getB2C()) min = component.getB2C();
+    if(min > component.getB2G()) min = component.getB2G();
+    return min;
+}
+
 int Obj::getTotalValue() const {
-    return component.B2B + component.B2C + component.B2G;
+    return component.getB2B() + component.getB2C() + component.getB2G();
 }
 
-int Obj::getTotalPercent() const {
-    return getB2BPercent() + getB2CPercent() + getB2GPercent();
+int Obj::getTotalPercentage() const {
+    return getB2BPercentage() + getB2CPercentage() + getB2GPercentage();
 }
 
-std::ostream& operator <<(std::ostream& os, const Obj& obj) {
-    return os << " OBJ: (DATE: " << obj.getDate()
-              << " - VALUES: "
-              << "b2b = " << obj.getB2BVal()
-              << ", b2c = " << obj.getB2CVal()
-              << ", b2g = " << obj.getB2GVal()<<")";
+bool Obj::isValid() const {
+    return component.getB2B() != 0 || component.getB2C() != 0 || component.getB2G() != 0;
 }

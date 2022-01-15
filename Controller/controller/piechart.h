@@ -3,17 +3,18 @@
 
 #include <QtCharts/QPieSeries>
 #include <QtCharts/QPieSlice>
-#include "chart.h"
+#include "mychart.h"
 
-class PieChart : public Chart
+class PieChart : public MyChart
 {
 private:
     QPieSeries *series;
 protected:
     virtual void addSeries() const;
-    void customize() const override;
 public:
-    PieChart(std::shared_ptr<Obj> =nullptr, const std::string& ="", bool =false);
+    PieChart(Obj* =nullptr, const std::string& ="", bool =false);
+    ~PieChart() override;
+    PieChart& operator =(const PieChart&);
     virtual QPieSeries* getSeries() const;
     QChart* show() const override;
 };

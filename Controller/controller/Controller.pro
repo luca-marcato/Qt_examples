@@ -31,7 +31,6 @@ SOURCES += \
         obj.cpp \
         file.cpp \
         xmlfile.cpp \
-        chart.cpp \
         barchart.cpp \
         piechart.cpp \
         stacked_horizontal_barchart.cpp \
@@ -44,14 +43,15 @@ SOURCES += \
         dashboard.cpp \
         slidingwindow.cpp \
     addnew.cpp \
-    modifydialog.cpp
+    modifydialog.cpp \
+    mychart.cpp \
+    areachart.cpp
 
 HEADERS += \
         viewer.h \
         obj.h \
         file.h \
         xmlfile.h \
-        chart.h \
         barchart.h \
         piechart.h \
         stacked_horizontal_barchart.h \
@@ -64,4 +64,6 @@ HEADERS += \
         dashboard.h \
         slidingwindow.h \
     addnew.h \
-    modifydialog.h
+    modifydialog.h \
+    mychart.h \
+    areachart.h

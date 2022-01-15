@@ -1,7 +1,7 @@
 #include "file.h"
 
 File::File(const QString& name) : file(name) {
-    file.open(QIODevice::ReadWrite);
+    if(!name.isEmpty()) file.open(QIODevice::ReadWrite);
 }
 
 bool File::Exist(const QString& fileName) {

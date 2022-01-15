@@ -18,9 +18,10 @@ public:
     ~Viewer();
 
 public slots:
-    void showCharts();
-    void addNewChart() const;
+    void showCharts(QString =QString());
+    void addNewChart();
     void updateChart();
+    void addNewFiles();
 };
 
 #endif // VIEWER_H

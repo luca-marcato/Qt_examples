@@ -74,3 +74,11 @@ void StackedWidgetSlider::setChartView(std::list<QChart*> list) {
 void StackedWidgetSlider::setChartInfo(std::vector<QString> vector) {
     dashBoardWidget->setChartInfoContent(vector);
 }
+
+void StackedWidgetSlider::setAddNewChartDataMsg(const QString& msg) {
+    addNewWidget->setLabelMsg(msg);
+}
+
+const QString StackedWidgetSlider::getFilesPath() const {
+    return addNewWidget->getDropDownFilesPath();
+}

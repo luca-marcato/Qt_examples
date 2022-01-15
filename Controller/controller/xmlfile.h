@@ -11,9 +11,10 @@ class XmlFile: public File
 private:
     QDomDocument xmlFile;
 public:
-    XmlFile(const QString& =QString());
+    XmlFile(const QString& = QString());
+    void setFile(const QString&) override;
     Obj* FromFileToObj() const override;
-    void FromObjToFile(Obj*) override;
+    void FromObjToFile(const Obj* const) override;
 
     class XmlFileFormatError {
     private:

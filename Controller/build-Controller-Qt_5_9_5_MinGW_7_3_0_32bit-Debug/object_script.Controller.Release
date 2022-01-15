@@ -4,7 +4,6 @@ INPUT(
 ./release/obj.o
 ./release/file.o
 ./release/xmlfile.o
-./release/chart.o
 ./release/barchart.o
 ./release/piechart.o
 ./release/stacked_horizontal_barchart.o
@@ -18,6 +17,8 @@ INPUT(
 ./release/slidingwindow.o
 ./release/addnew.o
 ./release/modifydialog.o
+./release/mychart.o
+./release/areachart.o
 ./release/moc_viewer.o
 ./release/moc_slidingstackedwidget.o
 ./release/moc_stackedwidgetslider.o

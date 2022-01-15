@@ -12,28 +12,26 @@ class QTableWidget;
 QT_END_NAMESPACE
 class DropArea;
 
-//! [DropSiteWindow header]
 class DropSiteWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    DropSiteWindow();
+    DropSiteWindow(QWidget* =nullptr);
 
+    const QString getFilesPath() const;
 public slots:
-    void updateFormatsTable(const QMimeData *mimeData);
-    void copy();
+    void getFiles(const QMimeData *mimeData);
 
 private:
     DropArea *dropArea;
-    QLabel *abstractLabel;
-    QTableWidget *formatsTable;
 
-    QPushButton *clearButton;
-    QPushButton *copyButton;
-    QPushButton *quitButton;
+    QPushButton *cancelButton;
+    QPushButton *okButton;
     QDialogButtonBox *buttonBox;
+
+    QString* files;
 };
-//! [DropSiteWindow header]
+
 
 #endif // DROPSITEWINDOW_H
